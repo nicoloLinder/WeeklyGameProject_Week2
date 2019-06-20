@@ -56,7 +56,7 @@ namespace Entities
 
         private void OnDrawGizmos()
         {
-            if(Application.isPlaying) Gizmos.DrawSphere(GameFieldManager.Instance[_position], 0.1f);
+            if(Application.isPlaying) Gizmos.DrawSphere(GameFieldManager.Instance[_position], 0.02f);
         }
 
         #endregion
@@ -85,10 +85,10 @@ namespace Entities
         private void SetLineRendererPositions()
         {
             var positionIndex = GameFieldManager.Instance.GetPositionIndex(_position);
-                
+
             for (var i = 0; i < _width; i++)
             {
-                lineRenderer.SetPosition(i, GameFieldManager.Instance[positionIndex++]);
+                lineRenderer.SetPosition(i, GameFieldManager.Instance.GetLerpValue(positionIndex++, _position));
             }
         }
 

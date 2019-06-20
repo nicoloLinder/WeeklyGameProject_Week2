@@ -1,10 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace GameField
 {
-    public class Path
+    public class Path : IEnumerable<Vector2>
     {
         
         #region Variables
@@ -75,5 +76,15 @@ namespace GameField
         #region Coroutines
 
         #endregion
+
+        public IEnumerator<Vector2> GetEnumerator()
+        {
+            return _path.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

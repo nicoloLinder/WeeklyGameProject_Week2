@@ -10,7 +10,8 @@ namespace FSM
 
         #region PublicVariables
 
-        public Player player;
+        [Header("GamePlay")] public Player player;
+        [Range(0, 1)] public float acceleration = 0.5f;
 
         #endregion
 
@@ -25,7 +26,7 @@ namespace FSM
         #endregion
 
         #region MonoBehaviourMethods
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -50,21 +51,23 @@ namespace FSM
 
         #endregion
     }
-    
+
     public class MenuState : FSMState
     {
-        
         private readonly MenuStateManager _stateManager;
-        
+
+        private float currentSpeed; 
+
         public MenuState(MenuStateManager stateManager)
         {
             _stateManager = stateManager;
             stateID = StateID.MenuStateID;
         }
-        
-        public override void Reason(){
+
+        public override void Reason()
+        {
         }
-        
+
         public override void DoBeforeEntering()
         {
             _stateManager.onStateEnterTransitionEvent.Invoke();
@@ -79,7 +82,8 @@ namespace FSM
 
         public override void Act()
         {
-            _stateManager.player.Move(InputManager.ScreenLeftRightJoystick());
+            currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), _stateManager.acceleration);
+            _stateManager.player.Move(currentSpeed);
         }
     }
 }
