@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2019.1/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.1/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_WeeklyGameProject_Week2.-1438392758.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="Entities" t="Include">
+            <e p="Entity.cs" t="Include" />
+            <e p="Player.cs" t="Include" />
+          </e>
+          <e p="FSM" t="Include">
+            <e p="FSMSystem.cs" t="Include" />
+            <e p="GameOverStateManager.cs" t="Include" />
+            <e p="MenuStateManager.cs" t="Include" />
+            <e p="PlayStateManager.cs" t="Include" />
+            <e p="StateManager.cs" t="Include" />
+          </e>
+          <e p="GameEvents" t="Include">
+            <e p="BaseEvents.cs" t="Include" />
+            <e p="EventManager.cs" t="Include" />
+          </e>
+          <e p="GameField" t="Include">
+            <e p="Editor" t="Include">
+              <e p="FunctionVisualizerEditor.cs" t="Include" />
+            </e>
+            <e p="EpitrochoidPathFunction.cs" t="Include" />
+            <e p="FunctionVisualizer.cs" t="Include" />
+            <e p="GameFieldManager.cs" t="Include" />
+            <e p="MeshGenerator.cs" t="Include" />
+            <e p="Path.cs" t="Include" />
+            <e p="PathFunction.cs" t="Include" />
+            <e p="SquirclePathFunction.cs" t="Include" />
+          </e>
+          <e p="Option" t="Include">
+            <e p="OptionData.cs" t="Include" />
+            <e p="OptionManager.cs" t="Include" />
+          </e>
+          <e p="Social" t="Include">
+            <e p="ScoreManager.cs" t="Include" />
+          </e>
+          <e p="Utilities" t="Include">
+            <e p="GameManager.cs" t="Include" />
+            <e p="InputManager.cs" t="Include" />
+            <e p="Singleton.cs" t="Include" />
+            <e p="Template.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
+      <e p="WeeklyGameProject_Week2.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
