@@ -12,7 +12,7 @@ namespace Entities
         #region PublicVariables
 
         [Header("Line renderer")]
-        public LineRenderer lineRenderer;
+        
         [SerializeField]
         private int _width;
 
@@ -21,6 +21,9 @@ namespace Entities
         #endregion
 
         #region PrivateVariables
+
+        private LineRenderer _lineRenderer;
+        private EdgeCollider2D _edgeCollider2D;
 
         #endregion
 
@@ -39,10 +42,12 @@ namespace Entities
 
                 _width = value;
                 
-                lineRenderer.positionCount = _width;
+                _lineRenderer.positionCount = _width;
 
             } 
         }
+
+        public Vector2 Position => _lineRenderer.GetPosition(_width / 2);
 
         #endregion
 
@@ -50,7 +55,13 @@ namespace Entities
 
         private void Awake()
         {
-            lineRenderer.positionCount = _width;
+            _lineRenderer = GetComponent<LineRenderer>();
+            _edgeCollider2D = GetComponent<EdgeCollider2D>();
+            
+            _lineRenderer.positionCount = _width;
+            _edgeCollider2D.points = new Vector2[_width];
+            
+            SetPosition(0);
 //            SubscribeToEvents();
         }
 
@@ -86,10 +97,15 @@ namespace Entities
         {
             var positionIndex = GameFieldManager.Instance.GetPositionIndex(_position);
 
+            var positions = new Vector2[_width];
+            
             for (var i = 0; i < _width; i++)
             {
-                lineRenderer.SetPosition(i, GameFieldManager.Instance.GetLerpValue(positionIndex++, _position));
+                var point = GameFieldManager.Instance.GetLerpValue(positionIndex++, _position);
+                _lineRenderer.SetPosition(i, point);
+                positions[i] = point;
             }
+            _edgeCollider2D.points = positions;
         }
 
         private float FixPosition(float position)

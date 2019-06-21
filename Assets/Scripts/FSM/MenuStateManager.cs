@@ -31,6 +31,7 @@ namespace FSM
         {
             base.Awake();
             state = new MenuState(this);
+            
         }
 
         #endregion
@@ -82,6 +83,7 @@ namespace FSM
 
         public override void Act()
         {
+//            if (currentSpeed == 0 &&  InputManager.ScreenLeftRightJoystick() == 0) return;
             currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), _stateManager.acceleration);
             _stateManager.player.Move(currentSpeed);
         }

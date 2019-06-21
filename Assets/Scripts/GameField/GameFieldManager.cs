@@ -19,6 +19,7 @@ namespace GameField
 
         private Path _path;
         private MeshFilter _meshFilter;
+        private EdgeCollider2D _edgeCollider2D;
 
         #endregion
 
@@ -85,6 +86,13 @@ namespace GameField
         {
             _path = new Path(minPathPointsDistance, detail, pathFunction);
             _meshFilter.mesh = MeshGenerator.GenerateMesh(_path);
+            var points = new Vector2[_path.Length+1];
+            for (int i = 0; i < _path.Length; i++)
+            {
+                points[i] = _path[i];
+            }
+            points[_path.Length] = _path[0];
+            _edgeCollider2D.points = points;
         }
 
         public int GetPositionIndex(float floatIndex)
@@ -114,6 +122,7 @@ namespace GameField
         private void Initialize()
         {
             _meshFilter = GetComponent<MeshFilter>();
+            _edgeCollider2D = GetComponent<EdgeCollider2D>();
         }
 
         #endregion
