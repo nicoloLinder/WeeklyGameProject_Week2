@@ -1,5 +1,6 @@
 using System;
 using FSM;
+using GameEvents;
 using UnityEngine;
 
 namespace Entities
@@ -57,6 +58,7 @@ namespace Entities
                 }else
                 {
                     hits = 0;
+                    EventManager.TriggerEvent(GameEvent.WEAK_SCREEN_SHAKE);
                     MenuStateManager.Instance.uiText.text = hits.ToString();
                 }
                 velocity = Vector2.Reflect(direction, hit.normal);
