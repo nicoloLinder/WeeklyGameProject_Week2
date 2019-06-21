@@ -24,7 +24,14 @@ namespace GameField
 
         #region Properties
 
-        public Vector2 this[int index] => _path[index];
+        public Vector2 this[int index]
+        {
+            get
+            {
+                return _path[index];
+                
+            }
+        }
         public int Length => _path.Count;
 
         #endregion

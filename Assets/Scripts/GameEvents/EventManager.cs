@@ -89,7 +89,7 @@ namespace GameEvents
         /// <param name="listener">Listener.</param>
         public static void StopListening(GameEvent eventName, UnityAction listener)
         {
-            if (Instance == null) return;
+            if (!initialized) return;
             if (Instance.eventDictionary.TryGetValue(eventName, out var thisEvent))
             {
                 thisEvent.RemoveListener(listener);
@@ -102,7 +102,7 @@ namespace GameEvents
         /// <param name="eventName">Event name.</param>
         public static void StopListening(GameEvent eventName)
         {
-            if (Instance == null) return;
+            if (!initialized) return;
             if (Instance.eventDictionary.TryGetValue(eventName, out _))
             {
                 Instance.eventDictionary.Remove(eventName);
@@ -115,9 +115,8 @@ namespace GameEvents
         /// <param name="eventName">Event name.</param>
         public static void TriggerEvent(GameEvent eventName)
         {
-            if (Instance == null) return;
+            if (!initialized) return;
             if (!Instance.eventDictionary.TryGetValue(eventName, out var thisEvent)) return;
-            if(Instance.debugLog) Debug.Log($"Event {eventName} was triggered");
             thisEvent.Invoke();
         }
 

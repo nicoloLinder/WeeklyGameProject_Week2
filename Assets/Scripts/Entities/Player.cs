@@ -48,6 +48,7 @@ namespace Entities
         }
 
         public Vector2 Position => _lineRenderer.GetPosition(_width / 2);
+        public float FloatPosition => _position; 
 
         #endregion
 
@@ -83,11 +84,9 @@ namespace Entities
 
         public override void SetPosition(float position)
         {
-            _position = FixPosition(position);
+            _position = Mathf.Clamp01(FixPosition(position));
             SetLineRendererPositions();
         }
-        
-        
 
         #endregion
 
@@ -95,7 +94,7 @@ namespace Entities
 
         private void SetLineRendererPositions()
         {
-            var positionIndex = GameFieldManager.Instance.GetPositionIndex(_position);
+            var positionIndex = GameFieldManager.Instance.GetPositionIndex(_position) - _width/2;
 
             var positions = new Vector2[_width];
             

@@ -2,6 +2,7 @@ using Entities;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
+using Debug = UnityEngine.Debug;
 
 namespace FSM
 {
@@ -12,6 +13,7 @@ namespace FSM
         #region PublicVariables
 
         [Header("GamePlay")] public Player player;
+        public Ball ball;
         [Range(0, 1)] public float acceleration = 0.5f;
 
         public Text uiText;
@@ -60,7 +62,7 @@ namespace FSM
     {
         private readonly MenuStateManager _stateManager;
 
-        private float currentSpeed; 
+        private float currentSpeed;
 
         public MenuState(MenuStateManager stateManager)
         {
@@ -86,9 +88,19 @@ namespace FSM
 
         public override void Act()
         {
-//            if (currentSpeed == 0 &&  InputManager.ScreenLeftRightJoystick() == 0) return;
-            currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), _stateManager.acceleration);
-            _stateManager.player.Move(currentSpeed);
+            var hitPosition = _stateManager.ball.HitPosition().normalized;
+            var angle = Vector2.SignedAngle(Vector2.right, hitPosition);
+            angle += (angle < 0)? 360 : 0;
+            var position = angle * Mathf.Deg2Rad / (2 * Mathf.PI);
+            var playerPosition = _stateManager.player.FloatPosition;
+            
+            if (Mathf.Abs(playerPosition - position) > 0.01f)
+            {
+                _stateManager.player.Move(Mathf.Abs(position) > Mathf.Abs(playerPosition) ? 1 : -1);
+            }
+
+//            currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), _stateManager.acceleration);
+//            _stateManager.player.Move(currentSpeed);
         }
     }
 }

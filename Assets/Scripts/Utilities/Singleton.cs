@@ -14,6 +14,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
 
     #region PublicVariables
 
+    public static bool initialized;
+
     #endregion
 
     #region PrivateVariables
@@ -44,6 +46,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
                     instance = obj.AddComponent<T>();
                 }
             }
+
+            initialized = true;
             return instance;
         }
     }

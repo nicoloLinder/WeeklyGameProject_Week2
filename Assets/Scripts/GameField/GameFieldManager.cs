@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace GameField
@@ -33,7 +32,7 @@ namespace GameField
         {
             get
             {
-                if (index > _path.Length) index -= _path.Length;
+                if (index < 0) index += _path.Length;
                 else if (index > _path.Length - 1) index -= _path.Length;
 
                 return _path[index];

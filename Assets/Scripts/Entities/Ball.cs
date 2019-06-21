@@ -32,7 +32,7 @@ namespace Entities
 
         void Start()
         {
-            velocity = (MenuStateManager.Instance.player.Position - (Vector2)transform.position).normalized;
+            velocity = Vector2.one;
         }
 
         void Update()
@@ -46,9 +46,15 @@ namespace Entities
 
         #region PublicMethods
 
+        public Vector3 HitPosition()
+        {
+            var hit = Physics2D.Raycast(transform.position, velocity.normalized, 100, LayerMask.GetMask("Wall"));
+            return hit.point;
+        }
+
         public void Move(Vector2 direction)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, minHitDistance);
+            var hit = Physics2D.Raycast(transform.position, direction.normalized, minHitDistance);
             if (hit)
             {
                 if (hit.transform.tag == "Player")
