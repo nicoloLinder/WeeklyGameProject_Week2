@@ -1,5 +1,6 @@
 using Entities;
 using UnityEngine;
+using UnityEngine.UI;
 using Utilities;
 
 namespace FSM
@@ -12,6 +13,8 @@ namespace FSM
 
         [Header("GamePlay")] public Player player;
         [Range(0, 1)] public float acceleration = 0.5f;
+
+        public Text uiText;
 
         #endregion
 

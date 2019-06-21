@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 338325190}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1035,7 +1035,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 5
+  m_Text: 0
 --- !u!222 &1980450860
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1129,6 +1129,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   player: {fileID: 338325189}
   acceleration: 0.5
+  uiText: {fileID: 1980450859}
 --- !u!4 &2029419656
 Transform:
   m_ObjectHideFlags: 0

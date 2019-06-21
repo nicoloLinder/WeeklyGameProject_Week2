@@ -17,6 +17,7 @@ namespace Entities
         #region PrivateVariables
 
         private Vector2 velocity;
+        private int hits;
 
         #endregion
 
@@ -49,6 +50,15 @@ namespace Entities
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, minHitDistance);
             if (hit)
             {
+                if (hit.transform.tag == "Player")
+                {
+                    hits++;
+                    MenuStateManager.Instance.uiText.text = hits.ToString();
+                }else
+                {
+                    hits = 0;
+                    MenuStateManager.Instance.uiText.text = hits.ToString();
+                }
                 velocity = Vector2.Reflect(direction, hit.normal);
                 SetPosition((Vector2) transform.position + Vector2.Reflect(direction, hit.normal) * Time.deltaTime);
             }
