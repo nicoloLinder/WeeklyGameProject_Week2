@@ -1,4 +1,9 @@
 using System.Diagnostics;
+using Entities;
+using GameEvents;
+using GameField;
+using Social;
+using UnityEngine;
 using Utilities;
 
 namespace FSM
@@ -9,6 +14,8 @@ namespace FSM
         #region Variables
 
         #region PublicVariables
+
+        public Player player;
 
         #endregion
 
@@ -53,11 +60,14 @@ namespace FSM
     public class PlayState : FSMState
     {
         private readonly PlayStateManager _stateManager;
+        private float currentSpeed;
 
         public PlayState(PlayStateManager stateManager)
         {
             _stateManager = stateManager;
             stateID = StateID.PlayStateID;
+
+            StartListeningToEvents();
         }
 
         public override void Reason()
@@ -78,7 +88,31 @@ namespace FSM
 
         public override void Act()
         {
-           
+            currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), 0.5f);
+            _stateManager.player.Move(currentSpeed);
+        }
+
+        private void StartListeningToEvents()
+        {
+            EventManager.StartListening(GameEvent.BALL_PLAYER_HIT, OnBallPlayerHit);
+            EventManager.StartListening(GameEvent.BALL_WALL_HIT, OnBallWallHit);
+        }
+        
+        private void OnBallPlayerHit()
+        {
+            if (GameManager.CurrentState == stateID)
+            {
+                ScoreManager.Instance.Score++;
+            }
+        }
+
+        private void OnBallWallHit()
+        {
+            if (GameManager.CurrentState == stateID)
+            {
+                ScoreManager.Instance.Score--;
+                EventManager.TriggerEvent(GameEvent.WEAK_SCREEN_SHAKE);
+            }
         }
     }
 }

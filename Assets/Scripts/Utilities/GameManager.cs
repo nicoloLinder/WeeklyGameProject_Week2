@@ -22,6 +22,8 @@ public class GameManager : Singleton<GameManager>
 
     #region Properties
 
+    public static StateID CurrentState => Instance.fsmSystem.CurrentStateID;
+
     #endregion
 
     #region MonoBehaviourMethods

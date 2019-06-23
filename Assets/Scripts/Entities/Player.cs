@@ -17,6 +17,9 @@ namespace Entities
         private int _width;
 
         [Header("GamePlay")] public float speed;
+
+        [Header("Debug")] public bool debug;
+        [Range(0,1)] public float positionSlider;
         
         #endregion
 
@@ -62,13 +65,18 @@ namespace Entities
             _lineRenderer.positionCount = _width;
             _edgeCollider2D.points = new Vector2[_width];
             
-            SetPosition(0);
+            SetPosition(0.75f);
 //            SubscribeToEvents();
         }
 
         private void OnDrawGizmos()
         {
             if(Application.isPlaying) Gizmos.DrawSphere(GameFieldManager.Instance[_position], 0.02f);
+        }
+
+        private void OnValidate()
+        {
+            if(debug) SetPosition(positionSlider);
         }
 
         #endregion

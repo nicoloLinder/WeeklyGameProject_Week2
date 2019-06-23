@@ -13,6 +13,8 @@ namespace Social
 
         #region PublicVariables
 
+        public Text scoreText;
+
         #endregion
 
         #region PrivateVariables
@@ -34,6 +36,7 @@ namespace Social
             set
             {
                 _score = value;
+                scoreText.text = _score.ToString();
             }
         }
 

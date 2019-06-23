@@ -1,4 +1,5 @@
 using Entities;
+using GameField;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
@@ -36,7 +37,7 @@ namespace FSM
         {
             base.Awake();
             state = new MenuState(this);
-            
+            ball.ThrowBall(new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized);
         }
 
         #endregion
@@ -78,6 +79,7 @@ namespace FSM
         {
             _stateManager.onStateEnterTransitionEvent.Invoke();
             base.DoBeforeEntering();
+            
         }
 
         public override void DoBeforeLeaving()
@@ -88,15 +90,16 @@ namespace FSM
 
         public override void Act()
         {
-            var hitPosition = _stateManager.ball.HitPosition().normalized;
-            var angle = Vector2.SignedAngle(Vector2.right, hitPosition);
-            angle += (angle < 0)? 360 : 0;
-            var position = angle * Mathf.Deg2Rad / (2 * Mathf.PI);
+            var hitPosition = _stateManager.ball.HitPosition();
+            var position = GameFieldManager.Instance.GetFloatIndex(GameFieldManager.Instance.ClosestIndex(hitPosition));
             var playerPosition = _stateManager.player.FloatPosition;
             
-            if (Mathf.Abs(playerPosition - position) > 0.01f)
+            if (Mathf.Abs(playerPosition - position) > 0.05f)
             {
-                _stateManager.player.Move(Mathf.Abs(position) > Mathf.Abs(playerPosition) ? 1 : -1);
+                _stateManager.player.Move(Mathf.Abs(position) > Mathf.Abs(playerPosition) ? 3 : -3);
+            }else if (Mathf.Abs(playerPosition - position) > 0.01f)
+            {
+                _stateManager.player.Move(Mathf.Abs(position) > Mathf.Abs(playerPosition) ? 0.5f : -0.5f);
             }
 
 //            currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), _stateManager.acceleration);

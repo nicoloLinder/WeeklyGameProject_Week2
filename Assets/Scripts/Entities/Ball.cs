@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using FSM;
 using GameEvents;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace Entities
         #region PrivateVariables
 
         private Vector2 velocity;
-        private int hits;
+        private bool moving;
 
         #endregion
 
@@ -29,16 +29,6 @@ namespace Entities
         #endregion
 
         #region MonoBehaviourMethods
-
-        void Start()
-        {
-            velocity = Vector2.one;
-        }
-
-        void Update()
-        {
-            Move(velocity);
-        }
 
         #endregion
 
@@ -52,6 +42,13 @@ namespace Entities
             return hit.point;
         }
 
+        public void ThrowBall(Vector2 direction)
+        {
+            velocity = direction;
+            moving = true;
+            StartCoroutine(Throw());
+        }
+
         public void Move(Vector2 direction)
         {
             var hit = Physics2D.Raycast(transform.position, direction.normalized, minHitDistance);
@@ -59,19 +56,21 @@ namespace Entities
             {
                 if (hit.transform.tag == "Player")
                 {
-                    hits++;
-                    MenuStateManager.Instance.uiText.text = hits.ToString();
+                    EventManager.TriggerEvent(GameEvent.BALL_PLAYER_HIT);
                 }else
                 {
-                    hits = 0;
-                    EventManager.TriggerEvent(GameEvent.WEAK_SCREEN_SHAKE);
-                    MenuStateManager.Instance.uiText.text = hits.ToString();
+                    EventManager.TriggerEvent(GameEvent.BALL_WALL_HIT);
                 }
                 velocity = Vector2.Reflect(direction, hit.normal);
                 SetPosition((Vector2) transform.position + Vector2.Reflect(direction, hit.normal) * Time.deltaTime);
             }
             else
             {
+//                hit = Physics2D.Raycast(transform.position, direction.normalized, 100);
+//                if (hit.point == Vector2.zero)
+//                {
+//                    velocity = -velocity;
+//                }
                 SetPosition((Vector2) transform.position + direction * Time.deltaTime);
             }
         }
@@ -90,6 +89,15 @@ namespace Entities
         #endregion
 
         #region Coroutines
+
+        private IEnumerator Throw()
+        {
+            while (moving)
+            {
+                Move(velocity);
+                yield return null;
+            }
+        }
 
         #endregion
     }

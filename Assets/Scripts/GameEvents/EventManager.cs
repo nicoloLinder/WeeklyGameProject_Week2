@@ -12,6 +12,9 @@ namespace GameEvents
         GAME_OVER,
         GAME_WIN,
         
+        BALL_PLAYER_HIT,
+        BALL_WALL_HIT,
+        
         SCREEN_SIZE_CHANGED,
         
         INPUT_SWIPE_UP,

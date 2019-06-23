@@ -27,14 +27,28 @@
           <e p="GameField" t="Include">
             <e p="Editor" t="Include">
               <e p="FunctionVisualizerEditor.cs" t="Include" />
+              <e p="PathEditor.cs" t="Include" />
             </e>
-            <e p="EpitrochoidPathFunction.cs" t="Include" />
             <e p="FunctionVisualizer.cs" t="Include" />
             <e p="GameFieldManager.cs" t="Include" />
             <e p="MeshGenerator.cs" t="Include" />
-            <e p="Path.cs" t="Include" />
-            <e p="PathFunction.cs" t="Include" />
-            <e p="SquirclePathFunction.cs" t="Include" />
+            <e p="Paths" t="Include">
+              <e p="EpitrochoidPathFunction.cs" t="Include" />
+              <e p="MeshPathFunction.cs" t="Include" />
+              <e p="Path.cs" t="Include" />
+              <e p="SquirclePath.cs" t="Include" />
+            </e>
+            <e p="Triangulator.cs" t="Include" />
+          </e>
+          <e p="MeshUtilities" t="Include">
+            <e p="Edge.cs" t="Include" />
+            <e p="Geometry.cs" t="Include" />
+            <e p="HalfEdge.cs" t="Include" />
+            <e p="Intersections.cs" t="Include" />
+            <e p="MathUtility.cs" t="Include" />
+            <e p="Triangle.cs" t="Include" />
+            <e p="Triangulation.cs" t="Include" />
+            <e p="Vertex.cs" t="Include" />
           </e>
           <e p="Option" t="Include">
             <e p="OptionData.cs" t="Include" />
