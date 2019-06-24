@@ -26,14 +26,15 @@
           </e>
           <e p="GameField" t="Include">
             <e p="Editor" t="Include">
-              <e p="FunctionVisualizerEditor.cs" t="Include" />
+              <e p="GameFieldManagerEditor.cs" t="Include" />
               <e p="PathEditor.cs" t="Include" />
             </e>
             <e p="GameFieldManager.cs" t="Include" />
             <e p="MeshGenerator.cs" t="Include" />
             <e p="Paths" t="Include">
-              <e p="EpitrochoidPathFunction.cs" t="Include" />
-              <e p="MeshPathFunction.cs" t="Include" />
+              <e p="EpitrochoidPath.cs" t="Include" />
+              <e p="EpitrochoidPolygonalPath.cs" t="Include" />
+              <e p="MeshPath.cs" t="Include" />
               <e p="Path.cs" t="Include" />
               <e p="SquirclePath.cs" t="Include" />
             </e>

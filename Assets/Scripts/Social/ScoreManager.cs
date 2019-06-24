@@ -35,7 +35,7 @@ namespace Social
             get => _score;
             set
             {
-                _score = value;
+                _score = Mathf.Clamp(value, 0, int.MaxValue);
                 scoreText.text = _score.ToString();
             }
         }

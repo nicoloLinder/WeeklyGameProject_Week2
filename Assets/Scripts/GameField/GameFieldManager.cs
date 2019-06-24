@@ -1,4 +1,5 @@
 using System.Linq;
+using GameEvents;
 using UnityEngine;
 
 namespace GameField
@@ -9,14 +10,17 @@ namespace GameField
 
         #region PublicVariables
 
-        [Header("Path Shape")]
-        public Path _path;
+        [Header("Path Shape")] public Path path;
+
+        public Mesh debugMesh;
+        
+        [HideInInspector]
+        public bool pathFoldout;
 
         #endregion
 
         #region PrivateVariables
 
-        
         private MeshFilter _meshFilter;
         private EdgeCollider2D _edgeCollider2D;
 
@@ -26,16 +30,16 @@ namespace GameField
 
         #region Properties
 
-        public Vector2 this[float index] => _path[GetPositionIndex(index)];
+        public Vector2 this[float index] => path[GetPositionIndex(index)];
 
         public Vector2 this[int index]
         {
             get
             {
-                if (index < 0) index += _path.Length;
-                else if (index > _path.Length - 1) index -= _path.Length;
+                if (index < 0) index += path.Length;
+                else if (index > path.Length - 1) index -= path.Length;
 
-                return _path[index];
+                return path[index];
             }
         }
 
@@ -68,38 +72,38 @@ namespace GameField
 
         private void OnDrawGizmos()
         {
-            if (_path == null) return;
+            if (path == null) return;
             var index = 0;
-            foreach (Vector3 VARIABLE in _path)
+            foreach (Vector3 VARIABLE in path)
             {
                 Gizmos.color = Color.black;
                 Gizmos.DrawSphere(VARIABLE, 0.001f);
             }
 
-            for (var i = 0; i < _path.Length; i++)
+            for (var i = 0; i < path.Length; i++)
             {
                 var nextIndex = i + 1;
-                if (nextIndex > _path.Length - 1)
+                if (nextIndex > path.Length - 1)
                 {
                     nextIndex = 0;
                 }
                 else if (nextIndex < 0)
                 {
-                    nextIndex = _path.Length - 1;
+                    nextIndex = path.Length - 1;
                 }
 
                 var prevIndex = i - 1;
-                if (prevIndex > _path.Length - 1)
+                if (prevIndex > path.Length - 1)
                 {
                     prevIndex = 0;
                 }
                 else if (prevIndex < 0)
                 {
-                    prevIndex = _path.Length - 1;
+                    prevIndex = path.Length - 1;
                 }
 
-                var currentToPrev = (_path[prevIndex] - _path[i]);
-                var currentToNext = (_path[nextIndex] - _path[i]);
+                var currentToPrev = (path[prevIndex] - path[i]);
+                var currentToNext = (path[nextIndex] - path[i]);
 
                 var normalPervCurrent =
                     new Vector2(currentToPrev.normalized.y, -currentToPrev.normalized.x);
@@ -107,18 +111,25 @@ namespace GameField
                     new Vector2(-currentToNext.normalized.y, currentToNext.normalized.x);
 
                 Gizmos.color = Color.blue;
-                Gizmos.DrawRay(_path[i], currentToPrev / 10);
+                Gizmos.DrawRay(path[i], currentToPrev / 10);
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawRay(_path[i], normalPervCurrent / 100);
+                Gizmos.DrawRay(path[i], normalPervCurrent / 100);
 
                 Gizmos.color = Color.red;
-                Gizmos.DrawRay(_path[i], currentToNext / 10);
+                Gizmos.DrawRay(path[i], currentToNext / 10);
                 Gizmos.color = Color.magenta;
-                Gizmos.DrawRay(_path[i], normalNextCurrent / 100);
-                
+                Gizmos.DrawRay(path[i], normalNextCurrent / 100);
+
                 Gizmos.color = Color.white;
-                Gizmos.DrawRay(_path[i], (normalNextCurrent + normalPervCurrent)/ 100);
+                Gizmos.DrawRay(path[i], (normalNextCurrent + normalPervCurrent) / 100);
             }
+
+            Gizmos.color = new Color(0, 0, 0, 0.1f);
+//            Gizmos.DrawMesh(debugMesh, path.Barycenter, path.MaxRadius);
+            Gizmos.DrawMesh(debugMesh, path.Barycenter, Quaternion.identity, Vector3.one * path.MaxRadius*2);
+//            Gizmos.DrawSphere(path.Barycenter, path.MinRadius);
+            Gizmos.DrawMesh(debugMesh, path.Barycenter, Quaternion.identity, Vector3.one * path.MinRadius*2);
+            
         }
 
         #endregion
@@ -127,42 +138,52 @@ namespace GameField
 
         #region PublicMethods
 
+        public void SetPath(Path path)
+        {
+            this.path = path;
+            GenerateGameField();
+
+            EventManager.TriggerEvent(GameEvent.GAME_FIELD_CHANGED);
+        }
+
         public int ClosestIndex(Vector2 point)
         {
-            var closestPoint = _path.PathCopy.OrderBy(vector => Vector2.Distance(point, vector)).First();
-            return _path.PathCopy.IndexOf(closestPoint);
+            var closestPoint = path.PathCopy.OrderBy(vector => Vector2.Distance(point, vector)).First();
+            return path.PathCopy.IndexOf(closestPoint);
         }
 
         public void GenerateGameField()
         {
-            _path.GeneratePath();
-            _meshFilter.mesh = MeshGenerator.GenerateMesh(_path);
-            var points = new Vector2[_path.Length + 1];
-            
-            for (int i = 0; i < _path.Length; i++)
+            path.GeneratePath();
+            _meshFilter.mesh = MeshGenerator.GenerateMesh(path);
+            var points = new Vector2[path.Length + 1];
+
+            for (int i = 0; i < path.Length; i++)
             {
-                points[i] = _path.GetWallPoint(i);
+                points[i] = path.GetWallPoint(i);
             }
 
-            points[_path.Length] = _path[0];
+            points[path.Length] = path[0];
             _edgeCollider2D.points = points;
+
+//            Camera.main.orthographicSize = path.MaxRadius * 2;
         }
 
         public int GetPositionIndex(float floatIndex)
         {
-            return Mathf.FloorToInt(floatIndex % 1 * _path.Length);
+            return Mathf.FloorToInt(floatIndex % 1 * path.Length);
         }
-        
+
         public float GetFloatIndex(int index)
         {
-            return (float)index / _path.Length;
+            return (float) index / path.Length;
         }
 
         public float GetPercentageBetweenPoints(float floatIndex)
         {
-            var top = Mathf.Ceil(floatIndex % 1 * _path.Length);
-            var bottom = Mathf.Floor(floatIndex % 1 * _path.Length);
-            var value = floatIndex % 1 * _path.Length;
+            var top = Mathf.Ceil(floatIndex % 1 * path.Length);
+            var bottom = Mathf.Floor(floatIndex % 1 * path.Length);
+            var value = floatIndex % 1 * path.Length;
 
             return Mathf.Abs(top - bottom) > 0 ? (value - bottom) / (top - bottom) : 0;
         }

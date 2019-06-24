@@ -66,7 +66,7 @@ namespace Entities
             _edgeCollider2D.points = new Vector2[_width];
             
             SetPosition(0.75f);
-//            SubscribeToEvents();
+            SubscribeToEvents();
         }
 
         private void OnDrawGizmos()
@@ -84,6 +84,11 @@ namespace Entities
         #region Methods
 
         #region PublicMethods
+
+        public void SubscribeToEvents()
+        {
+            EventManager.StartListening(GameEvent.GAME_FIELD_CHANGED, () => SetPosition(_position));
+        }
 
         public override void Move(float direction)
         {

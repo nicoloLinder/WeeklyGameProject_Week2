@@ -11,6 +11,8 @@ namespace GameField
 
         #region PublicVariables
 
+        public float radius;
+
         #endregion
 
         #region PrivateVariables
@@ -29,6 +31,10 @@ namespace GameField
 
         public List<Vector3> WallOutline { get; set; }
 
+        public float MinRadius { get; protected set; }
+        public float MaxRadius { get; protected set; }
+        public Vector2 Barycenter { get; protected set; }
+
         #endregion
 
         #region Methods
@@ -39,21 +45,54 @@ namespace GameField
 
         #region PublicMethods
 
+        public void CalculateMinMaxRadius()
+        {
+            MaxRadius = float.MinValue;
+            MinRadius = float.MaxValue;
+
+            foreach (var point in _path)
+            {
+                var distance = Mathf.Abs(Vector2.Distance(point, Barycenter));
+
+                if (distance > MaxRadius) MaxRadius = distance;
+                if (distance < MinRadius) MinRadius = distance;
+            }
+        }
+
+        public void CorrectToRadius()
+        {
+            var multiplier = radius / MaxRadius;
+
+            for (var i = 0; i < _path.Count; i++)
+            {
+                _path[i] *= multiplier;
+            }
+
+            MaxRadius *= multiplier;
+            MinRadius *= multiplier;
+        }
+        public void CalculateBarycenter()
+        {
+            Barycenter = Vector2.zero;
+            foreach (var point in _path){ Barycenter += point;}
+            Barycenter /= _path.Count;
+        }
+
         public abstract List<Vector2> GeneratePath();
 
         public List<Vector2> MakePathEquidistant(List<Vector2> rawPath)
         {
-
             var equidistantPath = new List<Vector2>();
-            var pathCircumference = rawPath.Select((t, i) => Vector2.Distance(t, rawPath[(i + 1) % rawPath.Count])).Sum();
-            
+            var pathCircumference =
+                rawPath.Select((t, i) => Vector2.Distance(t, rawPath[(i + 1) % rawPath.Count])).Sum();
+
             var distanceBetweenPoints = pathCircumference / rawPath.Count;
 
             var currentPoint = rawPath[0];
             var nextPoint = rawPath[1];
-            
+
             equidistantPath.Add(currentPoint);
-            
+
             var distanceLeftToTravel = distanceBetweenPoints;
 
             for (var i = 1; i <= rawPath.Count;)
@@ -66,30 +105,30 @@ namespace GameField
                     distanceLeftToTravel = distanceBetweenPoints;
                     pathCircumference -= distanceBetweenPoints;
                     equidistantPath.Add(currentPoint);
-                    
                 }
                 else
                 {
                     distanceLeftToTravel -= distance;
                     currentPoint = nextPoint;
-                    nextPoint = rawPath[++i%rawPath.Count];
+                    nextPoint = rawPath[++i % rawPath.Count];
                 }
 
                 if (!(pathCircumference <= 0)) continue;
-                
+
                 var distanceToFirstPoint = Vector2.Distance(currentPoint, equidistantPath[0]);
                 var pointsToAdd = (int) (distanceToFirstPoint / distanceBetweenPoints);
 
                 for (var j = 1; j <= pointsToAdd; j++)
                 {
-                    equidistantPath.Add(Vector2.Lerp(currentPoint, equidistantPath[0],(float)j/(pointsToAdd+1)));
+                    equidistantPath.Add(Vector2.Lerp(currentPoint, equidistantPath[0], (float) j / (pointsToAdd + 1)));
                 }
+
                 break;
             }
 
             return equidistantPath;
         }
-        
+
 
         public Vector2 GetPointNormal(int index)
         {
@@ -100,7 +139,7 @@ namespace GameField
             }
             else if (nextIndex < 0)
             {
-                nextIndex = _path.Count- 1;
+                nextIndex = _path.Count - 1;
             }
 
             var prevIndex = index - 1;
@@ -110,7 +149,7 @@ namespace GameField
             }
             else if (prevIndex < 0)
             {
-                prevIndex =_path.Count - 1;
+                prevIndex = _path.Count - 1;
             }
 
             var currentToPrev = (_path[prevIndex] - _path[index]);
@@ -131,7 +170,7 @@ namespace GameField
 
         public Vector2 GetWallPoint(float percentage)
         {
-            return GetWallPoint((int)(percentage % 1f * WallOutline.Count));
+            return GetWallPoint((int) (percentage % 1f * WallOutline.Count));
         }
 
         #endregion

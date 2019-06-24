@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GameField
 {
     [CreateAssetMenu(menuName = "Paths/Epitrochoid Path"), Serializable]
-    public class EpitrochoidPathFunction : Path
+    public class EpitrochoidPath : Path
     {
         public int bigRadius;
         public int smallRadius;
@@ -45,6 +45,12 @@ namespace GameField
             }
 
             _path = MakePathEquidistant(rawPath);
+            
+            CalculateBarycenter();
+            CalculateMinMaxRadius();
+
+            CorrectToRadius();
+            
             return _path;
         }
     }

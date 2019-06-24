@@ -33,6 +33,13 @@ namespace GameField
             }
 
             _path = MakePathEquidistant(rawPath);
+            
+            CalculateBarycenter();
+            CalculateMinMaxRadius();
+            
+
+            CorrectToRadius();
+            
             return _path;
         }
     }

@@ -25,8 +25,8 @@ namespace GameEvents
         
         STRONG_SCREEN_SHAKE,
         MEDIUM_SCREEN_SHAKE,
-        WEAK_SCREEN_SHAKE
-        
+        WEAK_SCREEN_SHAKE,
+        GAME_FIELD_CHANGED
     }
 
     public class EventManager : Singleton<EventManager>

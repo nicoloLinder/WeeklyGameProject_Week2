@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbb07a957164ca3a2c3dae2784ac3cb, type: 3}
   m_Name: Squircle Path
   m_EditorClassIdentifier: 
+  radius: 2
   divider: 1
   power: 3
-  pointCount: 100
+  pointCount: 200

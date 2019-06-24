@@ -6,12 +6,16 @@ using UnityEngine;
 namespace GameField
 {
     [CreateAssetMenu(menuName = "Paths/Mesh Path")]
-    public class MeshPathFunction : Path
+    public class MeshPath : Path
     {
         public Mesh mesh;
-
+        
         public override List<Vector2> GeneratePath()
         {
+            if (_path == null)
+            {
+                _path = new List<Vector2>();
+            }
             _path.Clear();
 
             var unorderedVertices = mesh.vertices.ToList();
@@ -28,6 +32,11 @@ namespace GameField
                 _path.Add(currentVertex);
                 unorderedVertices.Remove(currentVertex);
             }
+            
+            CalculateBarycenter();
+            CalculateMinMaxRadius();
+
+            CorrectToRadius();
 
             return _path;
         }

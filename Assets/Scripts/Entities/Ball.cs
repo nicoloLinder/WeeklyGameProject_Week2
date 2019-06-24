@@ -59,7 +59,9 @@ namespace Entities
                     EventManager.TriggerEvent(GameEvent.BALL_PLAYER_HIT);
                 }else
                 {
+                    ResetBall();
                     EventManager.TriggerEvent(GameEvent.BALL_WALL_HIT);
+                    return;
                 }
                 velocity = Vector2.Reflect(direction, hit.normal);
                 SetPosition((Vector2) transform.position + Vector2.Reflect(direction, hit.normal) * Time.deltaTime);
@@ -83,6 +85,12 @@ namespace Entities
         #endregion
 
         #region PrivateMethods
+
+        private void ResetBall()
+        {
+            transform.position = Vector3.zero;
+            velocity = PlayStateManager.Instance.player.Position.normalized;
+        }
 
         #endregion
 
