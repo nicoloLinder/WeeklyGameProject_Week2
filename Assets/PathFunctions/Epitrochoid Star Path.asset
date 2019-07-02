@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76f8384d02a441ea70489725901de4c, type: 3}
-  m_Name: Epitrochoid Polygonal Path
+  m_Script: {fileID: 11500000, guid: 1f4f9c31f072414889ed6370baf2b203, type: 3}
+  m_Name: Epitrochoid Star Path
   m_EditorClassIdentifier: 
   radius: 1.5
-  bigRadius: 5
+  bigRadius: 4
   smallRadius: -1
-  distance: 0.25
-  pointCount: 200
+  distance: 0.7
+  pointCount: 300

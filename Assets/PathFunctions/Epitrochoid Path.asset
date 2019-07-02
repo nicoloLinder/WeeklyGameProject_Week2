@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a1a529eff04fb495bc21ff09a29efb, type: 3}
   m_Name: Epitrochoid Path
   m_EditorClassIdentifier: 
-  radius: 2
+  radius: 1.5
   bigRadius: 6
-  smallRadius: -1
-  distance: 0.2
-  pointCount: 200
+  smallRadius: 1
+  distance: 0.125
+  pointCount: 50

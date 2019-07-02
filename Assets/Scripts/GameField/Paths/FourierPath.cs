@@ -5,31 +5,24 @@ using Utilities;
 
 namespace GameField
 {
-    [CreateAssetMenu(menuName = "Paths/Epitrochoid Path"), Serializable]
-    public class EpitrochoidPath : Path
+    [CreateAssetMenu(menuName = "Paths/Fourier Path"), Serializable]
+    public class FourierPath : Path
     {
-        [Range(3,20)]
-        public int bigRadius;
-        public int smallRadius;
-        public float distance;
-
         public int pointCount = 512;
 
         public override List<IndexedVector2> GeneratePath()
         {
             var rawPath = new List<IndexedVector2>();
-            
+
             for (var i = 0; i < pointCount; i++)
             {
 //                i += pointCount / bigRadius  % pointCount;
-                var theta = (float) i / pointCount * 2 * Mathf.PI;
+                var theta = (float) i / pointCount;
 
                 var position = new Vector2
                 {
-                    y = -(((bigRadius + smallRadius) * Mathf.Cos(theta) -
-                           distance * Mathf.Cos((bigRadius + smallRadius) / smallRadius * theta)) / bigRadius),
-                    x = ((bigRadius + smallRadius) * Mathf.Sin(theta) -
-                         distance * Mathf.Sin((bigRadius + smallRadius) / smallRadius * theta)) / bigRadius
+                    x = 4/Mathf.PI * (Mathf.Sin(1 * Mathf.PI * theta)/1 - Mathf.Sin(3 * Mathf.PI * theta)/3),// + Mathf.Sin(5 * Mathf.PI * theta)/5- Mathf.Sin(7 * Mathf.PI * theta)/7),
+                    y = 4/Mathf.PI * (Mathf.Cos(1 * Mathf.PI * theta)/1 - Mathf.Cos(3 * Mathf.PI * theta)/3)// + Mathf.Cos(5 * Mathf.PI * theta)/5- Mathf.Cos(7 * Mathf.PI * theta)/7)
                 };
 
                 rawPath.Add(new IndexedVector2(position, i));
@@ -38,12 +31,12 @@ namespace GameField
             _path = MakePathEquidistant(rawPath);
 
             SetPathIndices();
-            
+
             CalculateBarycenter();
             CalculateMinMaxRadius();
 
             CorrectToRadius();
-            
+
             return _path;
         }
     }

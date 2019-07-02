@@ -1,6 +1,8 @@
 using System.Linq;
+using FSM;
 using GameEvents;
 using UnityEngine;
+using Utilities;
 
 namespace GameField
 {
@@ -12,8 +14,6 @@ namespace GameField
 
         [Header("Path Shape")] public Path path;
 
-        public Mesh debugMesh;
-        
         [HideInInspector]
         public bool pathFoldout;
 
@@ -30,9 +30,9 @@ namespace GameField
 
         #region Properties
 
-        public Vector2 this[float index] => path[GetPositionIndex(index)];
+        public IndexedVector2 this[float index] => path[GetPositionIndex(index)];
 
-        public Vector2 this[int index]
+        public IndexedVector2 this[int index]
         {
             get
             {
@@ -42,6 +42,15 @@ namespace GameField
                 return path[index];
             }
         }
+
+//        public int this[Vector2 point] => path.IndexOf(point); 
+
+        public Vector2 Barycenter => path.Barycenter;
+        public float MaxRadius => path.MaxRadius;
+
+        public float Offset => MenuStateManager.Instance.player.thickness;
+
+        public int Length => path.Length;
 
         #endregion
 
@@ -54,83 +63,25 @@ namespace GameField
             GenerateGameField();
         }
 
-        private void Start()
+        private void OnValidate()
         {
+            Initialize();
         }
 
-        private void OnEnable()
-        {
-        }
-
-        private void OnDisable()
-        {
-        }
-
-        private void OnDestroy()
-        {
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (path == null) return;
-            var index = 0;
-            foreach (Vector3 VARIABLE in path)
-            {
-                Gizmos.color = Color.black;
-                Gizmos.DrawSphere(VARIABLE, 0.001f);
-            }
-
-            for (var i = 0; i < path.Length; i++)
-            {
-                var nextIndex = i + 1;
-                if (nextIndex > path.Length - 1)
-                {
-                    nextIndex = 0;
-                }
-                else if (nextIndex < 0)
-                {
-                    nextIndex = path.Length - 1;
-                }
-
-                var prevIndex = i - 1;
-                if (prevIndex > path.Length - 1)
-                {
-                    prevIndex = 0;
-                }
-                else if (prevIndex < 0)
-                {
-                    prevIndex = path.Length - 1;
-                }
-
-                var currentToPrev = (path[prevIndex] - path[i]);
-                var currentToNext = (path[nextIndex] - path[i]);
-
-                var normalPervCurrent =
-                    new Vector2(currentToPrev.normalized.y, -currentToPrev.normalized.x);
-                var normalNextCurrent =
-                    new Vector2(-currentToNext.normalized.y, currentToNext.normalized.x);
-
-                Gizmos.color = Color.blue;
-                Gizmos.DrawRay(path[i], currentToPrev / 10);
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawRay(path[i], normalPervCurrent / 100);
-
-                Gizmos.color = Color.red;
-                Gizmos.DrawRay(path[i], currentToNext / 10);
-                Gizmos.color = Color.magenta;
-                Gizmos.DrawRay(path[i], normalNextCurrent / 100);
-
-                Gizmos.color = Color.white;
-                Gizmos.DrawRay(path[i], (normalNextCurrent + normalPervCurrent) / 100);
-            }
-
-            Gizmos.color = new Color(0, 0, 0, 0.1f);
-//            Gizmos.DrawMesh(debugMesh, path.Barycenter, path.MaxRadius);
-            Gizmos.DrawMesh(debugMesh, path.Barycenter, Quaternion.identity, Vector3.one * path.MaxRadius*2);
-//            Gizmos.DrawSphere(path.Barycenter, path.MinRadius);
-            Gizmos.DrawMesh(debugMesh, path.Barycenter, Quaternion.identity, Vector3.one * path.MinRadius*2);
-            
-        }
+//        private void OnDrawGizmos()
+//        {
+//            if (path == null) return;
+//            
+//            foreach (var point in path)
+//            {
+//                Gizmos.color = Color.black;
+//                Gizmos.DrawSphere(point, 0.01f);
+//            }
+//
+//            Gizmos.color = new Color(0, 0, 0, 0.1f);
+////            Gizmos.DrawMesh(debugMesh, path.Barycenter, Quaternion.identity, Vector3.one * path.MaxRadius*2);
+////            Gizmos.DrawMesh(debugMesh, path.Barycenter, Quaternion.identity, Vector3.one * path.MinRadius*2);
+//        }
 
         #endregion
 
@@ -146,53 +97,82 @@ namespace GameField
             EventManager.TriggerEvent(GameEvent.GAME_FIELD_CHANGED);
         }
 
-        public int ClosestIndex(Vector2 point)
-        {
-            var closestPoint = path.PathCopy.OrderBy(vector => Vector2.Distance(point, vector)).First();
-            return path.PathCopy.IndexOf(closestPoint);
-        }
-
         public void GenerateGameField()
         {
             path.GeneratePath();
+            
             _meshFilter.mesh = MeshGenerator.GenerateMesh(path);
             var points = new Vector2[path.Length + 1];
 
             for (int i = 0; i < path.Length; i++)
             {
-                points[i] = path.GetWallPoint(i);
+                points[i] = path.GetPointOnWall(i);
             }
 
-            points[path.Length] = path[0];
+            points[path.Length] = path.GetPointOnWall(0);
             _edgeCollider2D.points = points;
 
 //            Camera.main.orthographicSize = path.MaxRadius * 2;
         }
-
-        public int GetPositionIndex(float floatIndex)
+        
+        public Vector2 GetLerpedPoint(int index, float positionInPercentage)
         {
-            return Mathf.FloorToInt(floatIndex % 1 * path.Length);
+            var percentage = GetPercentageBetweenPoints(positionInPercentage);
+            return Vector2.Lerp(this[index], this[index + 1], percentage);
         }
-
-        public float GetFloatIndex(int index)
+        
+        public float GetPercentageBetweenPoints(float positionInPercentage)
         {
-            return (float) index / path.Length;
-        }
-
-        public float GetPercentageBetweenPoints(float floatIndex)
-        {
-            var top = Mathf.Ceil(floatIndex % 1 * path.Length);
-            var bottom = Mathf.Floor(floatIndex % 1 * path.Length);
-            var value = floatIndex % 1 * path.Length;
+            var top = Mathf.Ceil(positionInPercentage % 1 * path.Length);
+            var bottom = Mathf.Floor(positionInPercentage % 1 * path.Length);
+            var value = positionInPercentage % 1 * path.Length;
 
             return Mathf.Abs(top - bottom) > 0 ? (value - bottom) / (top - bottom) : 0;
         }
-
-        public Vector2 GetLerpValue(int index, float floatIndex)
+        
+        public int ClosestIndex(Vector2 point)
         {
-            var percentage = GetPercentageBetweenPoints(floatIndex);
-            return Vector2.Lerp(this[index], this[index + 1], percentage);
+            var closestPoint = path.PathCopy.OrderBy(vector => Vector2.Distance(point, vector)).First();
+            return closestPoint.index;
         }
+
+        public float ClosestPercentage(Vector2 point)
+        {
+            return (float)ClosestIndex(point) / Length;
+        }
+        
+
+        public int GetPositionIndex(float positionInPercentage)
+        {
+            return Mathf.FloorToInt(positionInPercentage % 1 * path.Length);
+        }
+
+        public Vector2 GetPointNormal(int index)
+        {
+            return path.GetPointNormal(index);
+        }
+        
+        public Vector2 GetPointOnWall(int index)
+        {
+            return path.GetPointOnWall(index);
+        }
+
+        public Vector2 GetPointOnWall(float index)
+        {
+            return path.GetPointOnWall(index);
+        }
+
+        public IndexedVector2 GetPointOnWall(Vector2 closestPoint)
+        {
+            return path.GetPointOnWall(closestPoint);
+        }
+
+        public int GetDistanceInPoints(float distance)
+        {
+            return Mathf.FloorToInt(distance / path.DistanceBetweenPoints);
+        }
+
+        
 
         #endregion
 
@@ -200,8 +180,11 @@ namespace GameField
 
         private void Initialize()
         {
-            _meshFilter = GetComponent<MeshFilter>();
-            _edgeCollider2D = GetComponent<EdgeCollider2D>();
+            if(_meshFilter == null)
+                _meshFilter = GetComponent<MeshFilter>();
+            if(_edgeCollider2D == null)
+                _edgeCollider2D = GetComponent<EdgeCollider2D>();
+            
         }
 
         #endregion

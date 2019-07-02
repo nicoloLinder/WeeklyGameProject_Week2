@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utilities;
 
 namespace GameField
 {
@@ -10,11 +11,11 @@ namespace GameField
     {
         public Mesh mesh;
         
-        public override List<Vector2> GeneratePath()
+        public override List<IndexedVector2> GeneratePath()
         {
             if (_path == null)
             {
-                _path = new List<Vector2>();
+                _path = new List<IndexedVector2>();
             }
             _path.Clear();
 

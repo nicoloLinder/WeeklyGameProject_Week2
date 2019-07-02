@@ -1,7 +1,14 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using DefaultNamespace;
 using FSM;
 using GameEvents;
+using GameField;
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.UI;
+using BezierContour = Unity.VectorGraphics.BezierContour;
 
 namespace Entities
 {
@@ -12,12 +19,14 @@ namespace Entities
         #region PublicVariables
 
         public float minHitDistance;
+        public float radius = 0.15f;
+        public float speed;
 
         #endregion
 
         #region PrivateVariables
 
-        private Vector2 velocity;
+        public Vector2 velocity;
         private bool moving;
 
         #endregion
@@ -29,6 +38,11 @@ namespace Entities
         #endregion
 
         #region MonoBehaviourMethods
+
+        void Start()
+        {
+            transform.localScale = Vector3.one * radius * 2;
+        }
 
         #endregion
 
@@ -57,29 +71,39 @@ namespace Entities
                 if (hit.transform.tag == "Player")
                 {
                     EventManager.TriggerEvent(GameEvent.BALL_PLAYER_HIT);
-                }else
-                {
-                    ResetBall();
-                    EventManager.TriggerEvent(GameEvent.BALL_WALL_HIT);
+
+                    velocity = Vector2.Reflect(direction, hit.normal);
+                    SetPosition((Vector2) transform.position + Vector2.Reflect(direction, hit.normal) * Time.deltaTime * speed);
                     return;
                 }
-                velocity = Vector2.Reflect(direction, hit.normal);
-                SetPosition((Vector2) transform.position + Vector2.Reflect(direction, hit.normal) * Time.deltaTime);
+
+//                else
+//                {
+////                    ResetBall();
+////                    EventManager.TriggerEvent(GameEvent.BALL_WALL_HIT);
+////                    velocity = Vector2.Reflect(direction, hit.normal);
+//                    break;
+////                    return;
+//                }
             }
-            else
-            {
+
 //                hit = Physics2D.Raycast(transform.position, direction.normalized, 100);
 //                if (hit.point == Vector2.zero)
 //                {
 //                    velocity = -velocity;
 //                }
-                SetPosition((Vector2) transform.position + direction * Time.deltaTime);
-            }
+            SetPosition((Vector2) transform.position + direction * Time.deltaTime * speed);
         }
 
         public void SetPosition(Vector2 position)
         {
             transform.position = position;
+
+            if (Vector2.Distance(transform.position, GameFieldManager.Instance.Barycenter) >
+                GameFieldManager.Instance.MaxRadius * 2)
+            {
+                ResetBall();
+            }
         }
 
         #endregion
@@ -88,8 +112,8 @@ namespace Entities
 
         private void ResetBall()
         {
-            transform.position = Vector3.zero;
-            velocity = PlayStateManager.Instance.player.Position.normalized;
+            transform.position = -PlayStateManager.Instance.player.Position.normalized * 2;
+            velocity = PlayStateManager.Instance.player.Position.normalized * 2;
         }
 
         #endregion
@@ -100,9 +124,22 @@ namespace Entities
 
         private IEnumerator Throw()
         {
+//            yield break;
             while (moving)
             {
                 Move(velocity);
+//                if (Metaball.CreateMetaball(radius, metaballRadius, transform.position, Vector2.zero, v,
+//                    ref mesh, ref attached, distanceBeforeDetach, distanceBeforeDissolve))
+//                {
+//                    bezierMesh.gameObject.SetActive(true);
+//                    bezierMesh.mesh = mesh;
+//                }
+//                else
+//                {
+//                    bezierMesh.gameObject.SetActive(false);
+//                }
+
+
                 yield return null;
             }
         }

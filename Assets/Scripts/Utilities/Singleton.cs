@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 public abstract class Singleton<T> : MonoBehaviour where T : Component
@@ -37,6 +40,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
             if (instance == null)
             {
                 instance = FindObjectOfType<T>();
+                
                 if (instance == null)
                 {
                     GameObject obj = new GameObject
@@ -66,7 +70,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
             instance = this as T;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if(instance != this)
         {
             Destroy(gameObject);
         }
@@ -81,6 +85,12 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
     #endregion
 
     #region PrivateMethods
+
+    [ContextMenu("Clear Instances")]
+    public void ClearInstance()
+    {
+        instance = null;
+    }
 
     #endregion
 

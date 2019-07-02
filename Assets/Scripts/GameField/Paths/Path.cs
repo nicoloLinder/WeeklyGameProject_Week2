@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
+using Utilities;
 
 namespace GameField
 {
-    public abstract class Path : ScriptableObject, IEnumerable<Vector2>
+    public abstract class Path : ScriptableObject, IEnumerable<IndexedVector2>
     {
         #region Variables
 
@@ -16,8 +19,10 @@ namespace GameField
         #endregion
 
         #region PrivateVariables
+        
+        protected List<IndexedVector2> _path;
 
-        protected List<Vector2> _path;
+        protected float circumference;
 
         #endregion
 
@@ -25,15 +30,19 @@ namespace GameField
 
         #region Properties
 
-        public Vector2 this[int index] => _path[index];
+        public IndexedVector2 this[int index] => _path[index];
+        public IndexedVector2 this[float index] => _path[(int) (index % 1 * Length)];
+//        public IndexedVector2 this[Vector2 closestPoint] => _path.OrderBy(c => Vector2.Distance(closestPoint.vector, c.vector)).First();
         public int Length => _path.Count;
-        public List<Vector2> PathCopy => new List<Vector2>(_path);
+        public List<IndexedVector2> PathCopy => new List<IndexedVector2>(_path);
 
-        public List<Vector3> WallOutline { get; set; }
+        public List<IndexedVector2> WallOutline { get; set; }
 
         public float MinRadius { get; protected set; }
         public float MaxRadius { get; protected set; }
-        public Vector2 Barycenter { get; protected set; }
+        public IndexedVector2 Barycenter { get; protected set; }
+
+        public float DistanceBetweenPoints => circumference / Length;
 
         #endregion
 
@@ -52,7 +61,7 @@ namespace GameField
 
             foreach (var point in _path)
             {
-                var distance = Mathf.Abs(Vector2.Distance(point, Barycenter));
+                var distance = Mathf.Abs(IndexedVector2.Distance(point, Barycenter));
 
                 if (distance > MaxRadius) MaxRadius = distance;
                 if (distance < MinRadius) MinRadius = distance;
@@ -71,26 +80,32 @@ namespace GameField
             MaxRadius *= multiplier;
             MinRadius *= multiplier;
         }
+
         public void CalculateBarycenter()
         {
             Barycenter = Vector2.zero;
-            foreach (var point in _path){ Barycenter += point;}
+            foreach (var point in _path)
+            {
+                Barycenter += (Vector2)point;
+            }
+
             Barycenter /= _path.Count;
         }
 
-        public abstract List<Vector2> GeneratePath();
+        public abstract List<IndexedVector2> GeneratePath();
 
-        public List<Vector2> MakePathEquidistant(List<Vector2> rawPath)
+        public List<IndexedVector2> MakePathEquidistant(List<IndexedVector2> rawPath)
         {
-            var equidistantPath = new List<Vector2>();
-            var pathCircumference =
+            var equidistantPath = new List<IndexedVector2>();
+            var pathCircumference = circumference =
                 rawPath.Select((t, i) => Vector2.Distance(t, rawPath[(i + 1) % rawPath.Count])).Sum();
+            
 
             var distanceBetweenPoints = pathCircumference / rawPath.Count;
 
             var currentPoint = rawPath[0];
             var nextPoint = rawPath[1];
-
+            
             equidistantPath.Add(currentPoint);
 
             var distanceLeftToTravel = distanceBetweenPoints;
@@ -115,23 +130,52 @@ namespace GameField
 
                 if (!(pathCircumference <= 0)) continue;
 
-                var distanceToFirstPoint = Vector2.Distance(currentPoint, equidistantPath[0]);
+                var distanceToFirstPoint = IndexedVector2.Distance(currentPoint, equidistantPath[0]);
                 var pointsToAdd = (int) (distanceToFirstPoint / distanceBetweenPoints);
 
                 for (var j = 1; j <= pointsToAdd; j++)
                 {
-                    equidistantPath.Add(Vector2.Lerp(currentPoint, equidistantPath[0], (float) j / (pointsToAdd + 1)));
+                    equidistantPath.Add(IndexedVector2.Lerp(currentPoint, equidistantPath[0], (float) j / (pointsToAdd + 1)));
                 }
 
                 break;
             }
+            
 
+//            Debug.Log(equidistantPath[0]);
             return equidistantPath;
         }
 
+        public void SetPathIndices()
+        {
+            for (var i = 0; i < _path.Count; i++)
+            {
+                _path[i] = new IndexedVector2(_path[i].vector, i);
+            }
+        }
+
+        public IndexedVector2 GetClosestPoint(Vector2 closestPoint)
+        {
+            var distance = float.MaxValue;
+            IndexedVector2 realClosestPoint = new IndexedVector2();
+            
+            foreach (var point in _path)
+            {
+                var currentDistance = Vector2.Distance(closestPoint, point);
+                if (distance > currentDistance)
+                {
+                    
+                    distance = currentDistance;
+                    realClosestPoint = point;
+                }
+            }
+            return realClosestPoint;
+        }
 
         public Vector2 GetPointNormal(int index)
         {
+            index = AdjustIndex(index);
+            
             var nextIndex = index + 1;
             if (nextIndex > _path.Count - 1)
             {
@@ -152,8 +196,8 @@ namespace GameField
                 prevIndex = _path.Count - 1;
             }
 
-            var currentToPrev = (_path[prevIndex] - _path[index]);
-            var currentToNext = (_path[nextIndex] - _path[index]);
+            var currentToPrev = _path[prevIndex] - _path[index];
+            var currentToNext = _path[nextIndex] - _path[index];
 
             var normalPervCurrent = Vector2.Perpendicular(currentToPrev);
             //new Vector2(currentToPrev.normalized.y, -currentToPrev.normalized.x);
@@ -162,15 +206,41 @@ namespace GameField
 
             return (normalPervCurrent + normalNextCurrent).normalized;
         }
+        
 
-        public Vector2 GetWallPoint(int index)
+        public IndexedVector2 GetPointOnWall(int index)
         {
-            return this[index] + GetPointNormal(index) * 0.1f;
+            index = AdjustIndex(index);
+            return _path[index] + (IndexedVector2)GetPointNormal(index) * GameFieldManager.Instance.Offset;
         }
 
-        public Vector2 GetWallPoint(float percentage)
+        public IndexedVector2 GetPointOnWall(float index)
         {
-            return GetWallPoint((int) (percentage % 1f * WallOutline.Count));
+            var realIndex = (int) (index % 1 * Length); 
+            return _path[realIndex] + (IndexedVector2)GetPointNormal(realIndex) * GameFieldManager.Instance.Offset;
+        }
+
+        public IndexedVector2 GetPointOnWall(Vector2 closestPoint)
+        {
+            var index = GetClosestPoint(closestPoint).index;
+            return _path[index] + (IndexedVector2)GetPointNormal(index) * GameFieldManager.Instance.Offset;
+        }
+
+//        public int IndexOf(Vector2 point)
+//        {
+//            return _path.IndexOf(point);
+//        }
+
+        public int AdjustIndex(int index)
+        {
+            index %= Length;
+
+            if (index < 0)
+            {
+                index += Length;
+            }
+
+            return index;
         }
 
         #endregion
@@ -185,7 +255,7 @@ namespace GameField
 
         #endregion
 
-        public IEnumerator<Vector2> GetEnumerator()
+        public IEnumerator<IndexedVector2> GetEnumerator()
         {
             return _path.GetEnumerator();
         }
@@ -195,4 +265,5 @@ namespace GameField
             return GetEnumerator();
         }
     }
+
 }

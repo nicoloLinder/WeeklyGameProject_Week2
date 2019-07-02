@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 using Debug = UnityEngine.Debug;
 
 namespace GameField
@@ -14,9 +15,9 @@ namespace GameField
 
         
 
-        public override List<Vector2> GeneratePath()
+        public override List<IndexedVector2> GeneratePath()
         {
-            var  rawPath = new List<Vector2>();
+            var  rawPath = new List<IndexedVector2>();
 
             for (var i = 0; i < pointCount; i++)
             {

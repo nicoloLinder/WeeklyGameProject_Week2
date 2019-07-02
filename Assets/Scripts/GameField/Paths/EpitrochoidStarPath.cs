@@ -5,13 +5,13 @@ using Utilities;
 
 namespace GameField
 {
-    [CreateAssetMenu(menuName = "Paths/Epitrochoid Polygon Path"), Serializable]
-    public class EpitrochoidPolygonalPath : EpitrochoidPath
+    [CreateAssetMenu(menuName = "Paths/Epitrochoid Star Path"), Serializable]
+    public class EpitrochoidStarPath : EpitrochoidPath
     {
         public override List<IndexedVector2> GeneratePath()
         {
-            distance = 1f / (bigRadius - 1f);
-            smallRadius = -1;
+            distance = 0.75f - (bigRadius - 3) * 0.05f;
+//            smallRadius = -1;b 
             return base.GeneratePath();
         }
     }

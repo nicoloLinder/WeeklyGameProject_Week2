@@ -37,7 +37,7 @@ namespace FSM
         {
             base.Awake();
             state = new MenuState(this);
-            ball.ThrowBall(new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized);
+            ball.ThrowBall(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * 2);
         }
 
         #endregion
@@ -79,7 +79,6 @@ namespace FSM
         {
             _stateManager.onStateEnterTransitionEvent.Invoke();
             base.DoBeforeEntering();
-            
         }
 
         public override void DoBeforeLeaving()
@@ -91,15 +90,25 @@ namespace FSM
         public override void Act()
         {
             var hitPosition = _stateManager.ball.HitPosition();
-            var position = GameFieldManager.Instance.GetFloatIndex(GameFieldManager.Instance.ClosestIndex(hitPosition));
+            var position = GameFieldManager.Instance.ClosestPercentage(hitPosition);
             var playerPosition = _stateManager.player.FloatPosition;
-            
-            if (Mathf.Abs(playerPosition - position) > 0.05f)
+
+            var positionDir = playerPosition - position;
+
+            if (Mathf.Abs(playerPosition - position) > 0.1f)
             {
-                _stateManager.player.Move(Mathf.Abs(position) > Mathf.Abs(playerPosition) ? 3 : -3);
-            }else if (Mathf.Abs(playerPosition - position) > 0.01f)
+                currentSpeed = Mathf.Lerp(currentSpeed, positionDir < 0 ? 1.5f : -1.5f,
+                    0.05f);
+                _stateManager.player.Move(currentSpeed);
+            }
+            else if (Mathf.Abs(playerPosition - position) > 0.01f)
             {
-                _stateManager.player.Move(Mathf.Abs(position) > Mathf.Abs(playerPosition) ? 0.5f : -0.5f);
+                currentSpeed = Mathf.Lerp(currentSpeed, positionDir < 0 ? 0.5f : -0.5f,
+                    0.1f);
+                _stateManager.player.Move(currentSpeed);
+            }else
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, 0.1f);
             }
 
 //            currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), _stateManager.acceleration);

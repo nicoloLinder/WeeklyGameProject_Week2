@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEngine.Windows;
@@ -73,7 +74,8 @@ namespace GameEvents
         }
 
 #if UNITY_EDITOR
-        private void Screenshot()
+
+        private static void Screenshot()
         {
             if (!Directory.Exists("./ScreenShots/"))
             {

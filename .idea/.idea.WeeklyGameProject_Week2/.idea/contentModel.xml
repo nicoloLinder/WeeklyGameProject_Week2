@@ -31,9 +31,13 @@
             </e>
             <e p="GameFieldManager.cs" t="Include" />
             <e p="MeshGenerator.cs" t="Include" />
+            <e p="MetaBall.cs" t="Include" />
+            <e p="Metasrurface.cs" t="Include" />
             <e p="Paths" t="Include">
               <e p="EpitrochoidPath.cs" t="Include" />
               <e p="EpitrochoidPolygonalPath.cs" t="Include" />
+              <e p="EpitrochoidStarPath.cs" t="Include" />
+              <e p="FourierPath.cs" t="Include" />
               <e p="MeshPath.cs" t="Include" />
               <e p="Path.cs" t="Include" />
               <e p="SquirclePath.cs" t="Include" />
@@ -59,6 +63,7 @@
           </e>
           <e p="Utilities" t="Include">
             <e p="GameManager.cs" t="Include" />
+            <e p="IndexedVector2.cs" t="Include" />
             <e p="InputManager.cs" t="Include" />
             <e p="Singleton.cs" t="Include" />
             <e p="Template.cs" t="Include" />
