@@ -36,7 +36,7 @@ namespace GameField
             }
 
             _path = MakePathEquidistant(rawPath);
-
+//            _path = rawPath;
             SetPathIndices();
             
             CalculateBarycenter();

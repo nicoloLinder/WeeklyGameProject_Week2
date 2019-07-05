@@ -60,6 +60,9 @@ namespace Utilities
 
         public static Vector2 CurrentFingerPosition => Instance._currentFingerPosition;
 
+        public static Vector2 CurrentFingerPositionScreenCentered =>
+            CurrentFingerPosition - new Vector2(Screen.width / 2, Screen.height / 2);
+
         public static Vector2 CurrentMovementVector
         {
             get => Instance._currentMovementVector;

@@ -24,26 +24,6 @@ namespace Entities
 
         #region MonoBehaviourMethods
 
-        void Start()
-        {
-
-        }
-
-        void OnEnable()
-        {
-
-        }
-
-        void OnDisable()
-        {
-
-        }
-
-        void OnDestroy()
-        {
-
-        }
-
         #endregion
 
         #region Methods

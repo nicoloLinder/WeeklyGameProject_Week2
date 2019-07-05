@@ -1,10 +1,13 @@
 using System.Diagnostics;
+using System.Numerics;
 using Entities;
 using GameEvents;
 using GameField;
 using Social;
 using UnityEngine;
 using Utilities;
+using Debug = UnityEngine.Debug;
+using Vector2 = UnityEngine.Vector2;
 
 namespace FSM
 {
@@ -14,8 +17,6 @@ namespace FSM
         #region Variables
 
         #region PublicVariables
-
-        public Player player;
 
         #endregion
 
@@ -88,8 +89,28 @@ namespace FSM
 
         public override void Act()
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), 0.5f);
-            _stateManager.player.Move(currentSpeed);
+            if (!InputManager.IsFingerDown) return;
+//            currentSpeed = Mathf.Lerp(currentSpeed, InputManager.ScreenLeftRightJoystick(), 0.5f);
+            var currentFingerPosition = InputManager.CurrentFingerPositionScreenCentered;
+            var percentage = Vector2.SignedAngle(Vector2.down, currentFingerPosition.normalized);
+
+            percentage += (percentage < 0) ? 360 : 0;
+            percentage /= 360;
+            
+            var currentPercentage = GameManager.Player.FloatPosition;
+
+            if (Mathf.Abs(currentPercentage - percentage) > 0.5f)
+            {
+                percentage += (currentPercentage > percentage)? 1:-1;
+            }
+            
+            if(Mathf.Abs(currentPercentage - percentage) > 0)
+                GameManager.Player.SetPosition(Mathf.Lerp(currentPercentage, percentage, GameManager.Ball.squishing? 0.001f : 0.1f));
+//            GameManager.Player.SetPosition(percentage);
+//            var currentPlayerPosition = GameManager.Player.transform.position.normalized;
+            
+//            var sign = Mathf.Sign(currentFingerPosition.x * currentPlayerPosition.y - currentFingerPosition.y * currentPlayerPosition.x);
+//            percentage = Vector2.Angle(currentFingerPosition, currentPlayerPosition) * sign;
         }
 
         private void StartListeningToEvents()

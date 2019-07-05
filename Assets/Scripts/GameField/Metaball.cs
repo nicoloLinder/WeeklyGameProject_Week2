@@ -51,7 +51,7 @@ namespace DefaultNamespace
 
         void LateUpdate()
         {
-            CreateMetaball(MenuStateManager.Instance.ball.radius, MenuStateManager.Instance.ball.transform.position);
+            CreateMetaball(GameManager.Ball.radius, GameManager.Ball.transform.position);
         }
 
 //        private void OnValidate()

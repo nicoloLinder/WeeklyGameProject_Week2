@@ -1,14 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using DefaultNamespace;
-using FSM;
 using GameEvents;
 using GameField;
-using Unity.VectorGraphics;
 using UnityEngine;
-using UnityEngine.UI;
-using BezierContour = Unity.VectorGraphics.BezierContour;
 
 namespace Entities
 {
@@ -18,16 +11,21 @@ namespace Entities
 
         #region PublicVariables
 
-        public float minHitDistance;
+        public float minHitDistance = 0.01f;
         public float radius = 0.15f;
         public float speed;
+
+        public float maxSpeedDivider;
+
+        public float maxSquashDistance;
 
         #endregion
 
         #region PrivateVariables
 
-        public Vector2 velocity;
+        private Vector2 _velocity;
         private bool moving;
+        public bool squishing;
 
         #endregion
 
@@ -35,13 +33,19 @@ namespace Entities
 
         #region Properties
 
+        public float DistanceToPlayer
+        {
+            get;
+            private set;
+        }
+
         #endregion
 
         #region MonoBehaviourMethods
 
-        void Start()
+        private void Start()
         {
-            transform.localScale = Vector3.one * radius * 2;
+            Initialize();
         }
 
         #endregion
@@ -50,52 +54,96 @@ namespace Entities
 
         #region PublicMethods
 
-        public Vector3 HitPosition()
+        /// <summary>
+        /// Calculate the expected hit position on the wall
+        /// </summary>
+        /// <returns>The point of impact of the ball with the current velocity</returns>
+        public Vector3 ExpectedHitPosition()
         {
-            var hit = Physics2D.Raycast(transform.position, velocity.normalized, 100, LayerMask.GetMask("Wall"));
+            var direction = _velocity.normalized;
+            var hit = Physics2D.Raycast((Vector2)transform.position + direction * radius, direction, 100, LayerMask.GetMask("Wall"));
+            return hit.point;
+        }
+        
+        public Vector3 ExpectedHitPositionFromCenter()
+        {
+            var direction = _velocity.normalized;
+            var hit = Physics2D.Raycast(transform.position, direction, 100, LayerMask.GetMask("Wall"));
             return hit.point;
         }
 
-        public void ThrowBall(Vector2 direction)
+        /// <summary>
+        /// Start the perpetual motion of the ball
+        /// </summary>
+        /// <param name="startingVelocity">The starting velocity</param>
+        public void ThrowBall(Vector2 startingVelocity)
         {
-            velocity = direction;
+            _velocity = startingVelocity;
             moving = true;
-            StartCoroutine(Throw());
+            
+            StartCoroutine(MovementCoroutine());
         }
 
-        public void Move(Vector2 direction)
+        /// <summary>
+        /// Move the ball with the current velocity
+        /// </summary>
+        private void Move()
         {
-            var hit = Physics2D.Raycast(transform.position, direction.normalized, minHitDistance);
+//            if (squishing) return;
+            var direction = _velocity.normalized;
+            var hit = Physics2D.Raycast((Vector2)transform.position, direction, 10);
+            var reverseHit = Physics2D.Raycast(transform.position, -direction, 2*radius);
+
+            squishing = false;
+            
+            DistanceToPlayer = 100;
+            
             if (hit)
             {
-                if (hit.transform.tag == "Player")
+                if (hit.transform.CompareTag("Player"))
                 {
-                    EventManager.TriggerEvent(GameEvent.BALL_PLAYER_HIT);
+                    DistanceToPlayer = Mathf.Clamp(hit.distance, maxSquashDistance, float.MaxValue);
+                    if (hit.distance < minHitDistance)
+                    {
+                        EventManager.TriggerEvent(GameEvent.BALL_PLAYER_HIT);
+//                    StartCoroutine(SquashCoroutine());
+                        _velocity = Vector2.Reflect(_velocity, hit.normal);
+                    }
 
-                    velocity = Vector2.Reflect(direction, hit.normal);
-                    SetPosition((Vector2) transform.position + Vector2.Reflect(direction, hit.normal) * Time.deltaTime * speed);
-                    return;
+                    if (hit.distance < radius)
+                    {
+                        var distancePercentage = (hit.distance - minHitDistance) / (radius - minHitDistance);
+                        
+                        squishing = true;
+                        SetPosition((Vector2) transform.position + Time.deltaTime * speed * _velocity / (Mathf.Lerp(1,maxSpeedDivider,distancePercentage)));
+                        transform.localRotation = Quaternion.Euler(0,0,Vector2.SignedAngle(Vector2.up, hit.normal));
+                        return;
+                    }
+                    
+//                    Debug.Break();
+                   
+
                 }
-
-//                else
-//                {
-////                    ResetBall();
-////                    EventManager.TriggerEvent(GameEvent.BALL_WALL_HIT);
-////                    velocity = Vector2.Reflect(direction, hit.normal);
-//                    break;
-////                    return;
-//                }
             }
+            
+            if (reverseHit)
+            {
+                if (reverseHit.transform.CompareTag("Player"))
+                {
+                    DistanceToPlayer = reverseHit.distance;
+                }
+            }
+            
+            transform.localRotation = Quaternion.Euler(0,0,Vector2.SignedAngle(Vector2.up, direction));
 
-//                hit = Physics2D.Raycast(transform.position, direction.normalized, 100);
-//                if (hit.point == Vector2.zero)
-//                {
-//                    velocity = -velocity;
-//                }
-            SetPosition((Vector2) transform.position + direction * Time.deltaTime * speed);
+            SetPosition((Vector2) transform.position + Time.deltaTime * speed * _velocity);
         }
 
-        public void SetPosition(Vector2 position)
+        /// <summary>
+        /// Set the ball position
+        /// </summary>
+        /// <param name="position">The new ball position</param>
+        private void SetPosition(Vector2 position)
         {
             transform.position = position;
 
@@ -110,10 +158,22 @@ namespace Entities
 
         #region PrivateMethods
 
+        /// <summary>
+        /// Initialize the ball 
+        /// </summary>
+        private void Initialize()
+        {
+            transform.localScale = radius * 2 * Vector3.one;
+            ResetBall();
+        }
+
+        /// <summary>
+        /// Reset the ball to be thrown outside the field toward the player
+        /// </summary>
         private void ResetBall()
         {
-            transform.position = -PlayStateManager.Instance.player.Position.normalized * 2;
-            velocity = PlayStateManager.Instance.player.Position.normalized * 2;
+            transform.position = -GameManager.Player.Position.normalized * 2;
+            _velocity = GameManager.Player.Position.normalized * 2;
         }
 
         #endregion
@@ -122,26 +182,69 @@ namespace Entities
 
         #region Coroutines
 
-        private IEnumerator Throw()
+        /// <summary>
+        /// Movement coroutine, moves the ball each frame as long as the ball is set to moving
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator MovementCoroutine()
         {
-//            yield break;
             while (moving)
             {
-                Move(velocity);
-//                if (Metaball.CreateMetaball(radius, metaballRadius, transform.position, Vector2.zero, v,
-//                    ref mesh, ref attached, distanceBeforeDetach, distanceBeforeDissolve))
-//                {
-//                    bezierMesh.gameObject.SetActive(true);
-//                    bezierMesh.mesh = mesh;
-//                }
-//                else
-//                {
-//                    bezierMesh.gameObject.SetActive(false);
-//                }
+                Move();
+                yield return null;
+            }
+        }
 
+        private IEnumerator SquashCoroutine()
+        {
+            squishing = true;
+            var direction = _velocity.normalized;
+            var hit = Physics2D.Raycast(transform.position, direction, 100);
+            var startingScale = transform.localScale;
+            
+//            transform.Rotate(Vector3.forward, -Vector2.Angle(Vector2.up, direction));
+//            transform.localRotation = Quaternion.Euler(0,0,Vector2.SignedAngle(Vector2.up, hit.normal));
+            var squishPercentage = 0f;
+
+            Debug.Log(hit.distance > maxSquashDistance);
+            
+            while (hit.distance > maxSquashDistance)
+            {
+                hit = Physics2D.Raycast(transform.position, direction, 100);
+                
+//                transform.localScale = new Vector2(transform.localScale.x, Mathf.Clamp(hit.distance, maxSquashDistance, radius));
+                
+                squishPercentage = Mathf.Clamp01(hit.distance - maxSquashDistance) / (radius - maxSquashDistance);
+                var actualVeocity = Time.deltaTime * speed * _velocity;
+                
+                SetPosition((Vector2) transform.position + actualVeocity - actualVeocity * squishPercentage);
+                
+                
+                Debug.Log("Squishing");
+                
+                yield return null;
+            }
+
+            _velocity = Vector2.Reflect(_velocity, hit.normal);
+            direction = -_velocity.normalized;
+            
+            while (hit.distance < radius)
+            {
+                hit = Physics2D.Raycast(transform.position, direction, 100);
+                
+//                transform.localScale = new Vector2(transform.localScale.x, Mathf.Clamp(hit.distance, maxSquashDistance, radius));
+                
+                squishPercentage = (hit.distance - maxSquashDistance) / (radius - maxSquashDistance);
+                var actualVeocity = Time.deltaTime * speed * _velocity;
+                
+                SetPosition((Vector2) transform.position + actualVeocity - actualVeocity * squishPercentage);
 
                 yield return null;
             }
+
+            transform.localScale = startingScale;
+
+            squishing = false;
         }
 
         #endregion

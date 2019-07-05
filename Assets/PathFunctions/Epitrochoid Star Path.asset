@@ -16,4 +16,4 @@ MonoBehaviour:
   bigRadius: 4
   smallRadius: -1
   distance: 0.7
-  pointCount: 300
+  pointCount: 50

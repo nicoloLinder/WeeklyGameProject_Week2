@@ -40,17 +40,17 @@ namespace DefaultNamespace
 
         void LateUpdate()
         {
-            var ballPosition = MenuStateManager.Instance.ball.transform.position;
+            var ballPosition = GameManager.Ball.transform.position;
 
             if (!attached)
             {
-                center = GameFieldManager.Instance.GetPointOnWall(MenuStateManager.Instance.ball.HitPosition());
+                center = GameFieldManager.Instance.GetPointOnWall(GameManager.Ball.ExpectedHitPositionFromCenter());
 
                 point1Index = center.index + GameFieldManager.Instance.GetDistanceInPoints(ballRadius);
                 point2Index = center.index + GameFieldManager.Instance.GetDistanceInPoints(-ballRadius);
             }
 
-            CreateMetaball(MenuStateManager.Instance.ball.radius, ballPosition);
+            CreateMetaball(GameManager.Ball.radius, ballPosition);
         }
 
         #endregion

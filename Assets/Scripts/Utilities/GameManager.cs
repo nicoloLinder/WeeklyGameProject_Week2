@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Entities;
 using FSM;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ public class GameManager : Singleton<GameManager>
 
     #region PublicVariables
 
+    [SerializeField] private Player _player;
+    [SerializeField] private Ball _ball;
+    
     #endregion
 
     #region PrivateVariables
@@ -23,6 +27,10 @@ public class GameManager : Singleton<GameManager>
     #region Properties
 
     public static StateID CurrentState => Instance.fsmSystem.CurrentStateID;
+
+    public static Player Player => Instance._player;
+
+    public static Ball Ball => Instance._ball;
 
     #endregion
 

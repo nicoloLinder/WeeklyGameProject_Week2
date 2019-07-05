@@ -100,7 +100,6 @@ namespace GameField
             var pathCircumference = circumference =
                 rawPath.Select((t, i) => Vector2.Distance(t, rawPath[(i + 1) % rawPath.Count])).Sum();
             
-
             var distanceBetweenPoints = pathCircumference / rawPath.Count;
 
             var currentPoint = rawPath[0];
@@ -112,13 +111,15 @@ namespace GameField
 
             for (var i = 1; i <= rawPath.Count;)
             {
-                var distance = Mathf.Abs(Vector2.Distance(currentPoint, nextPoint));
+                var distance = Vector2.Distance(currentPoint, nextPoint);
 
                 if (distance >= distanceLeftToTravel)
                 {
                     currentPoint += (nextPoint - currentPoint).normalized * distanceLeftToTravel;
+                    
                     distanceLeftToTravel = distanceBetweenPoints;
                     pathCircumference -= distanceBetweenPoints;
+                    
                     equidistantPath.Add(currentPoint);
                 }
                 else
@@ -128,7 +129,7 @@ namespace GameField
                     nextPoint = rawPath[++i % rawPath.Count];
                 }
 
-                if (!(pathCircumference <= 0)) continue;
+                if (pathCircumference > 0) continue;
 
                 var distanceToFirstPoint = IndexedVector2.Distance(currentPoint, equidistantPath[0]);
                 var pointsToAdd = (int) (distanceToFirstPoint / distanceBetweenPoints);
@@ -141,8 +142,6 @@ namespace GameField
                 break;
             }
             
-
-//            Debug.Log(equidistantPath[0]);
             return equidistantPath;
         }
 

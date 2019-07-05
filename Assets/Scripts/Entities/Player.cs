@@ -13,14 +13,10 @@ namespace Entities
 
         [Header("Line renderer")]
         public float width;
-
         public float thickness;
 
         [Header("GamePlay")] public float speed;
-
-        [Header("Debug")] public bool debug;
-        [Range(0, 1)] public float positionSlider;
-
+        
         #endregion
 
         #region PrivateVariables
@@ -35,62 +31,25 @@ namespace Entities
 
         #region Properties
 
-//        public int Width
-//        {
-//            get => _intWidth;
-//            set
-//            {
-//                value = Mathf.Abs(value);
-//                if (value == 0) value = 2;
-//                value -= value % 2 == 0 ? 0 : 1;
-//
-//                _intWidth = value;
-//
-//                _lineRenderer.positionCount = _intWidth;
-//            }
-//        }
-
         public Vector2 Position => _lineRenderer.GetPosition(_intWidth / 2);
         public float FloatPosition => _position;
 
         #endregion
 
         #region MonoBehaviourMethods
-
+        
         private void Awake()
         {
             Initialize();
-
-            SetPosition(0.75f);
             SubscribeToEvents();
+            SetPosition(0);
         }
-
-//        private void OnDrawGizmos()
-//        {
-//            if (!Application.isPlaying)
-//            {
-//                Initialize();
-//                if (debug) SetPosition(positionSlider);
-//            }
-//        }
-
-//        private void OnValidate()
-//        {
-//            Initialize();
-//            if (debug) SetPosition(positionSlider);
-//            
-//        }
-
+        
         #endregion
 
         #region Methods
 
         #region PublicMethods
-
-        public void SubscribeToEvents()
-        {
-            EventManager.StartListening(GameEvent.GAME_FIELD_CHANGED, () => SetPosition(_position));
-        }
 
         public override void Move(float direction)
         {
@@ -99,21 +58,23 @@ namespace Entities
 
         public override void SetPosition(float position)
         {
-            _position = Mathf.Clamp01(FixPosition(position));
-            SetLineRendererPositions();
+            _position = Mathf.Clamp01(Remap01(position));
+            SetLinePositions();
         }
 
         public void SetWidth(float newWidth)
         {
             _intWidth = GameFieldManager.Instance.GetDistanceInPoints(newWidth);
-            Debug.Log(GameFieldManager.Instance[_intWidth]);
             _intWidth += _intWidth % 2 == 0 ? 0 : 1;
         }
 
         #endregion
 
         #region PrivateMethods
-
+        
+        /// <summary>
+        /// Initialize the player
+        /// </summary>
         private void Initialize()
         {
             SetWidth(width);
@@ -125,9 +86,20 @@ namespace Entities
             
             _lineRenderer.positionCount = _intWidth;
             _edgeCollider2D.points = new Vector2[_intWidth];
+
+            _edgeCollider2D.edgeRadius = thickness/2;
+            _lineRenderer.widthMultiplier = thickness;
+        }
+        
+        private void SubscribeToEvents()
+        {
+            EventManager.StartListening(GameEvent.GAME_FIELD_CHANGED, () => SetPosition(_position));
         }
 
-        private void SetLineRendererPositions()
+        /// <summary>
+        /// Set the positions for the line renderer and edgeCollider
+        /// </summary>
+        private void SetLinePositions()
         {
             var positionIndex = GameFieldManager.Instance.GetPositionIndex(_position) - _intWidth / 2;
 
@@ -143,19 +115,23 @@ namespace Entities
             _edgeCollider2D.points = positions;
         }
 
-        private float FixPosition(float position)
+        /// <summary>
+        /// Remap the value so that it's between 0 - 1
+        /// </summary>
+        /// <param name="value">The value to remap</param>
+        /// <returns>The remapped value</returns>
+        private static float Remap01(float value)
         {
-            if (position > 1)
+            if (value > 1)
             {
-                return FixPosition(position - 1);
+                return Remap01(value - 1);
             }
-
-            if (position < 0)
+            else if (value < 0)
             {
-                return FixPosition(position + 1);
+                return Remap01(value + 1);
             }
-
-            return position;
+            
+            return value;
         }
 
         #endregion

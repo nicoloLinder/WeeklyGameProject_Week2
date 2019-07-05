@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$USER_HOME$/Library/Caches/Rider2019.1/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.1/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_WeeklyGameProject_Week2.-1438392758.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.1/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_WeeklyGameProject_Week2.269182101.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -12,6 +12,7 @@
             <e p="Ball.cs" t="Include" />
             <e p="Entity.cs" t="Include" />
             <e p="Player.cs" t="Include" />
+            <e p="SquashAndStretch.cs" t="Include" />
           </e>
           <e p="FSM" t="Include">
             <e p="FSMSystem.cs" t="Include" />
@@ -37,7 +38,6 @@
               <e p="EpitrochoidPath.cs" t="Include" />
               <e p="EpitrochoidPolygonalPath.cs" t="Include" />
               <e p="EpitrochoidStarPath.cs" t="Include" />
-              <e p="FourierPath.cs" t="Include" />
               <e p="MeshPath.cs" t="Include" />
               <e p="Path.cs" t="Include" />
               <e p="SquirclePath.cs" t="Include" />
@@ -68,6 +68,9 @@
             <e p="Singleton.cs" t="Include" />
             <e p="Template.cs" t="Include" />
           </e>
+        </e>
+        <e p="Shaders" t="Include">
+          <e p="SquashAndStretchUnlit.shader" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
