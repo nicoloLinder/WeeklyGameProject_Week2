@@ -210,19 +210,19 @@ namespace GameField
         public IndexedVector2 GetPointOnWall(int index)
         {
             index = AdjustIndex(index);
-            return _path[index] + (IndexedVector2)GetPointNormal(index) * GameFieldManager.Instance.Offset;
+            return _path[index] + (IndexedVector2)GetPointNormal(index) * GameFieldManager.Offset;
         }
 
         public IndexedVector2 GetPointOnWall(float index)
         {
             var realIndex = (int) (index % 1 * Length); 
-            return _path[realIndex] + (IndexedVector2)GetPointNormal(realIndex) * GameFieldManager.Instance.Offset;
+            return _path[realIndex] + (IndexedVector2)GetPointNormal(realIndex) * GameFieldManager.Offset;
         }
 
         public IndexedVector2 GetPointOnWall(Vector2 closestPoint)
         {
             var index = GetClosestPoint(closestPoint).index;
-            return _path[index] + (IndexedVector2)GetPointNormal(index) * GameFieldManager.Instance.Offset;
+            return _path[index] + (IndexedVector2)GetPointNormal(index) * GameFieldManager.Offset;
         }
 
 //        public int IndexOf(Vector2 point)

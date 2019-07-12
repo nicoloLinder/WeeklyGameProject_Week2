@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Epitrochoid Star Path
   m_EditorClassIdentifier: 
   radius: 1.5
-  bigRadius: 4
+  bigRadius: 6
   smallRadius: -1
-  distance: 0.7
-  pointCount: 50
+  distance: 0.6
+  pointCount: 300

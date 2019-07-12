@@ -48,7 +48,7 @@ namespace GameField
         public Vector2 Barycenter => path.Barycenter;
         public float MaxRadius => path.MaxRadius;
 
-        public float Offset => GameManager.Player.thickness;
+        public static float Offset => GameManager.Player.thickness;
 
         public int Length => path.Length;
 

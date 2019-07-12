@@ -24,6 +24,7 @@ namespace Entities
         #region PrivateVariables
 
         private Vector2 _velocity;
+        private Vector2 _playerVelocityOnImpact;
         private bool moving;
         public bool squishing;
 
@@ -84,6 +85,18 @@ namespace Entities
             StartCoroutine(MovementCoroutine());
         }
 
+        public void AddForce(Vector2 force)
+        {
+            var magnitude = _velocity.magnitude;
+            
+            _velocity += force;
+            _velocity.Normalize();
+
+            _velocity *= magnitude;
+
+
+        }
+
         /// <summary>
         /// Move the ball with the current velocity
         /// </summary>
@@ -91,7 +104,7 @@ namespace Entities
         {
 //            if (squishing) return;
             var direction = _velocity.normalized;
-            var hit = Physics2D.Raycast((Vector2)transform.position, direction, 10);
+            var hit = Physics2D.Raycast(transform.position, direction, 10);
             var reverseHit = Physics2D.Raycast(transform.position, -direction, 2*radius);
 
             squishing = false;
@@ -103,18 +116,25 @@ namespace Entities
                 if (hit.transform.CompareTag("Player"))
                 {
                     DistanceToPlayer = Mathf.Clamp(hit.distance, maxSquashDistance, float.MaxValue);
-                    if (hit.distance < minHitDistance)
+                    if (hit.distance< minHitDistance)
                     {
                         EventManager.TriggerEvent(GameEvent.BALL_PLAYER_HIT);
 //                    StartCoroutine(SquashCoroutine());
+                        AddForce(_playerVelocityOnImpact/5);
+                        _playerVelocityOnImpact = Vector2.zero;
                         _velocity = Vector2.Reflect(_velocity, hit.normal);
                     }
 
                     if (hit.distance < radius)
                     {
-                        var distancePercentage = (hit.distance - minHitDistance) / (radius - minHitDistance);
+                        if (!squishing)
+                        {
+                            squishing = true;
+                            _playerVelocityOnImpact = GameManager.Player.Velocity.normalized;
+                        }
+                        var distancePercentage = (hit.distance + radius - minHitDistance) / (radius - minHitDistance);
                         
-                        squishing = true;
+                        
                         SetPosition((Vector2) transform.position + Time.deltaTime * speed * _velocity / (Mathf.Lerp(1,maxSpeedDivider,distancePercentage)));
                         transform.localRotation = Quaternion.Euler(0,0,Vector2.SignedAngle(Vector2.up, hit.normal));
                         return;

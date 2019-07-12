@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using FSM;
 using GameField;
+using SlimeSystem;
 using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -17,12 +19,13 @@ namespace DefaultNamespace
 
         public float v;
 
-        public bool attached;
+        
 
         public float distanceBeforeDetach;
+        public float distanceBeforeDisappear;
         public float distanceBeforeDissolve;
 
-        public bool spriteVisualization;
+        [FormerlySerializedAs("spriteVisualization")] public bool spriteRender;
 
         #endregion
 
@@ -31,6 +34,7 @@ namespace DefaultNamespace
         private MeshFilter meshFilter;
         protected MeshRenderer meshRenderer;
         protected SpriteRenderer spriteRenderer;
+        protected Sprite _sprite;
 
         #endregion
 
@@ -39,6 +43,8 @@ namespace DefaultNamespace
         #region Properties
 
         private Vector2 Center => transform.position;
+        
+        protected bool Attached => spriteRender ? spriteRenderer.enabled : meshRenderer.enabled;
 
         #endregion
 
@@ -51,26 +57,8 @@ namespace DefaultNamespace
 
         void LateUpdate()
         {
-            CreateMetaball(GameManager.Ball.radius, GameManager.Ball.transform.position);
+            SetRendererEnabled(CreateMetaball(GameManager.Ball.radius, GameManager.Ball.transform.position));
         }
-
-//        private void OnValidate()
-//        {
-//            if (!enabled) return;
-//            Initialize();
-//            CreateMetaball(MenuStateManager.Instance.ball.radius, MenuStateManager.Instance.ball.transform.position);
-//        }
-
-//        private void OnDrawGizmos()
-//        {
-//            if (!enabled) return;
-//            if (!Application.isPlaying)
-//            {
-//                Initialize();
-//                CreateMetaball(MenuStateManager.Instance.ball.radius,
-//                    MenuStateManager.Instance.ball.transform.position);
-//            }
-//        }
 
         #endregion
 
@@ -87,11 +75,9 @@ namespace DefaultNamespace
 
             //    Check if balls are intersecting
 
-            if (distance > (attached ? distanceBeforeDetach : distanceBeforeDissolve) ||
+            if (distance > (Attached ? 100 : distanceBeforeDissolve) ||
                 distance <= Mathf.Abs(radius1 - ballRadius))
             {
-                attached = false;
-                meshRenderer.enabled = false;
                 return false;
             }
 
@@ -108,9 +94,6 @@ namespace DefaultNamespace
                 u1 = 0;
                 u2 = 0;
             }
-
-            attached = true;
-            meshRenderer.enabled = true;
 
             //    Calculate all angles needed
 
@@ -146,6 +129,13 @@ namespace DefaultNamespace
             var handle4 = GetPoint(point4, angle4 - Mathf.PI / 2, r2);
 
             //    Define the bezier segments
+
+            if (BezierCurveUtils.CheckIBezierCurveIntersection(
+                new BezierSegment {P0 = point1, P1 = handle1, P2 = handle3, P3 = point3},
+                new BezierSegment {P0 = point2, P1 = handle2, P2 = handle4, P3 = point4}))
+            {
+                return false;
+            }
 
             var bezierSegments = new[]
             {
@@ -184,36 +174,8 @@ namespace DefaultNamespace
             };
 
             //    Unite everything together
-
-            var vectorScene = new Scene
-            {
-                Root = new SceneNode
-                {
-                    Shapes = new List<Shape>
-                    {
-                        new Shape
-                        {
-                            Contours = new[] {bezierContour},
-                            Fill = new SolidFill()
-                        }
-                    }
-                }
-            };
-
-            var tessellationOptions = new VectorUtils.TessellationOptions
-            {
-                MaxCordDeviation = float.MaxValue,
-                MaxTanAngleDeviation = Mathf.PI / 2.0f,
-                SamplingStepSize = 0.5f,
-                StepDistance = 0.01f
-            };
-
-            VectorUtils.TessellateScene(vectorScene, tessellationOptions);
-            var geometry = VectorUtils.TessellateScene(vectorScene, tessellationOptions);
-
-            VectorUtils.FillMesh(meshFilter.mesh, geometry, 1f);
-
-//            var mesh = meshFilter.sharedMesh;
+            
+            GenerateBezierCurve(new[] {bezierContour});
 
             return true;
         }
@@ -224,7 +186,7 @@ namespace DefaultNamespace
 
         protected void Initialize()
         {
-            if (!spriteVisualization)
+            if (!spriteRender)
             {
                 if (meshFilter == null)
                 {
@@ -252,6 +214,67 @@ namespace DefaultNamespace
         protected Vector2 GetPoint(Vector2 point, float angle, float radius)
         {
             return new Vector2(point.x + radius * Mathf.Cos(angle), point.y + radius * Mathf.Sin(angle));
+        }
+        
+        protected void GenerateBezierCurve(BezierContour[] bezierContours)
+        {
+            
+            var vectorScene = new Scene
+            {
+                Root = new SceneNode
+                {
+                    Shapes = new List<Shape>
+                    {
+                        new Shape
+                        {
+                            Contours = bezierContours,
+                            IsConvex = false,
+                            Fill = new SolidFill
+                            {
+                                Mode = FillMode.NonZero
+                            }
+                        }
+                    }
+                }
+            };
+
+            var tessellationOptions = new VectorUtils.TessellationOptions
+            {
+                MaxCordDeviation = float.MaxValue,
+                MaxTanAngleDeviation = Mathf.PI / 2.0f,
+                SamplingStepSize = 0.5f,
+                StepDistance = 0.05f
+            };
+
+            VectorUtils.TessellateScene(vectorScene, tessellationOptions);
+            var geometry = VectorUtils.TessellateScene(vectorScene, tessellationOptions);
+
+            if (spriteRender)
+            {
+                _sprite = VectorUtils.BuildSprite(geometry, 1, VectorUtils.Alignment.Center, Vector2.zero, 0);
+
+                spriteRenderer.sprite = _sprite;
+                
+                transform.position = geometry[0].UnclippedBounds.center;
+            }
+            else
+            {
+                VectorUtils.FillMesh(meshFilter.mesh, geometry, 1f);
+            }
+
+            
+        }
+
+        protected void SetRendererEnabled(bool _enabled)
+        {
+            if (spriteRender)
+            {
+                spriteRenderer.enabled = _enabled;
+            }
+            else
+            {
+                meshRenderer.enabled = _enabled;
+            }
         }
 
         #endregion

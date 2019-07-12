@@ -18,7 +18,7 @@ namespace GameField
 
             for (var i = 0; i < vertices.Length; i++)
             {
-                vertices[i] += (Vector3)path.GetPointNormal(i) * GameFieldManager.Instance.Offset;
+                vertices[i] += (Vector3)path.GetPointNormal(i) * GameFieldManager.Offset;
             }
             
             mesh.vertices = vertices;
@@ -38,7 +38,7 @@ namespace GameField
             
             for (var i = 1; i < vertices.Length; i++)
             {
-                vertices[i] += (Vector3)path.GetPointNormal(i-1) * GameFieldManager.Instance.Offset;
+                vertices[i] += (Vector3)path.GetPointNormal(i-1) * GameFieldManager.Offset;
                 uv[i] = Vector2.right;
             }
 

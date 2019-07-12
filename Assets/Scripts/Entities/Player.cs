@@ -2,6 +2,7 @@ using System;
 using GameEvents;
 using GameField;
 using UnityEngine;
+using Utilities;
 
 namespace Entities
 {
@@ -25,6 +26,8 @@ namespace Entities
         private EdgeCollider2D _edgeCollider2D;
         private int _intWidth;
 
+        private Vector3 _lastPosition;
+
         #endregion
 
         #endregion
@@ -33,6 +36,12 @@ namespace Entities
 
         public Vector2 Position => _lineRenderer.GetPosition(_intWidth / 2);
         public float FloatPosition => _position;
+
+        public Vector2 Velocity
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
@@ -44,7 +53,16 @@ namespace Entities
             SubscribeToEvents();
             SetPosition(0);
         }
-        
+
+        private void Update()
+        {
+            if (!InputManager.IsFingerDown || !InputManager.IsFingerMoving)
+            {
+                Velocity = Vector2.zero;
+            }
+           
+        }
+
         #endregion
 
         #region Methods
@@ -105,13 +123,17 @@ namespace Entities
 
             var positions = new Vector2[_intWidth];
 
+            _lastPosition = _lineRenderer.GetPosition(0);
+
             for (var i = 0; i < _intWidth; i++)
             {
                 var point = GameFieldManager.Instance.GetLerpedPoint(positionIndex++, _position);
                 _lineRenderer.SetPosition(i, point);
                 positions[i] = point;
             }
-
+            
+            Velocity = (_lineRenderer.GetPosition(0) - _lastPosition) / Time.deltaTime;
+            
             _edgeCollider2D.points = positions;
         }
 

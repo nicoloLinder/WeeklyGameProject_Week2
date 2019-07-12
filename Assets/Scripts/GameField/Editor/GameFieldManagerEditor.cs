@@ -37,7 +37,7 @@ namespace GameField
             
             foreach (IndexedVector2 point in gameFieldManager.path)
             {
-                Handles.Label(point + gameFieldManager.GetPointNormal(point.index) * gameFieldManager.Offset, point.index.ToString());
+                Handles.Label(point + gameFieldManager.GetPointNormal(point.index) * GameFieldManager.Offset, point.index.ToString());
             }
         }
 

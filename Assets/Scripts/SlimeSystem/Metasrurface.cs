@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using FSM;
 using GameField;
+using SlimeSystem;
 using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -13,8 +16,6 @@ namespace DefaultNamespace
         #region Variables
 
         #region PublicVariables
-
-        public Sprite sprite;
 
         #endregion
 
@@ -38,11 +39,11 @@ namespace DefaultNamespace
 
         #region MonoBehaviourMethods
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             var ballPosition = GameManager.Ball.transform.position;
 
-            if (!attached)
+            if (!Attached)
             {
                 center = GameFieldManager.Instance.GetPointOnWall(GameManager.Ball.ExpectedHitPositionFromCenter());
 
@@ -50,7 +51,7 @@ namespace DefaultNamespace
                 point2Index = center.index + GameFieldManager.Instance.GetDistanceInPoints(-ballRadius);
             }
 
-            CreateMetaball(GameManager.Ball.radius, ballPosition);
+            SetRendererEnabled(CreateMetaball(GameManager.Ball.radius, ballPosition));
         }
 
         #endregion
@@ -74,10 +75,8 @@ namespace DefaultNamespace
 
             //    Check if balls are intersecting
 
-            if (distance > (attached ? distanceBeforeDetach : distanceBeforeDissolve))
+            if (distance > (Attached ? 100 : distanceBeforeDissolve))
             {
-                attached = false;
-                spriteRenderer.enabled = false;
                 return false;
             }
 
@@ -85,8 +84,6 @@ namespace DefaultNamespace
             {
                 if (CheckSide(point2, point1, point5) > 0)
                 {
-                    attached = false;
-                    spriteRenderer.enabled = false;
                     return false;
                 }
 
@@ -98,16 +95,11 @@ namespace DefaultNamespace
             {
                 if (CheckSide(point2, point1, point5) > 0)
                 {
-                    attached = false;
-                    spriteRenderer.enabled = false;
                     return false;
                 }
 
                 u1 = 0;
             }
-
-            attached = true;
-            spriteRenderer.enabled = true;
 
             //    Calculate all angles needed
 
@@ -142,58 +134,27 @@ namespace DefaultNamespace
             var r1 = radius1 * d2;
             var r2 = ballRadius * d2;
 
+            //    Handle point 1 Right surface
             var handle1 = GetPoint(point1, AngleBetweenCenters(tangentPoint1, point1), r1);
+            //    Handle point 2 Left surface
             var handle2 = GetPoint(point2, AngleBetweenCenters(tangentPoint2, point2), r1);
+            //    Handle point 3 Right Ball
             var handle3 = GetPoint(point3, angle1 - Mathf.PI / 2, r2);
+            //    Handle point 4 Left Ball
             var handle4 = GetPoint(point4, angle2 + Mathf.PI / 2, r2);
 
+            //    Handle point 5 Right
             var handle5 = point5 + Vector2.Perpendicular(point5).normalized * radius1;
+            //    Handle point 5 Left
             var handle6 = point5 - Vector2.Perpendicular(point5).normalized * radius1;
 
             //    Define the bezier segments
             var numberOfPoints = point1Index - point2Index;
 
-//            Gizmos.color = Color.red;
-//            Gizmos.DrawSphere(handle1,0.05f);
-//            Gizmos.DrawSphere(point1,0.01f);
-//            Gizmos.DrawLine(point1, handle1);
-//            Gizmos.color = Color.blue;
-//            Gizmos.DrawSphere(handle2,0.05f);
-//            Gizmos.DrawSphere(point2,0.01f);
-//            Gizmos.DrawLine(point2, handle2);
-//            Gizmos.color = Color.magenta;
-//            Gizmos.DrawSphere(handle3,0.01f);
-//            Gizmos.DrawSphere(point3,0.01f);
-//            Gizmos.DrawLine(point3, handle3);
-//            Gizmos.color = Color.cyan;
-//            Gizmos.DrawSphere(handle4,0.01f);
-//            Gizmos.DrawSphere(point4,0.01f);
-//            Gizmos.DrawLine(point4, handle4);
-//
-//            Gizmos.color = Color.green;
-//            Gizmos.DrawLine(point1, point3);
-//            Gizmos.DrawLine(point3, point4);
-//            Gizmos.DrawLine(point4, point2);
-//            Gizmos.DrawLine(point2, point1);
-//
-//            Gizmos.color = Color.yellow;
-//            Gizmos.DrawSphere(point5, 0.01f);
-//            Gizmos.DrawLine(point5, handle5);
-//            Gizmos.DrawLine(point5, handle6);
-//
-//            Gizmos.DrawRay(point1, perpendicularLine);
-
-            Debug.DrawRay(point1, handle1 - point1, Color.red);
-            Debug.DrawRay(point2, handle2 - point2, Color.blue);
-            Debug.DrawRay(point3, handle3 - point3, Color.magenta);
-            Debug.DrawRay(point4, handle4 - point4, Color.cyan);
+            int index;
 
             BezierPathSegment[] bezierSegments;
 
-
-            int index;
-            
-            
             if (distance <= Mathf.Abs(radius1 - ballRadius))
             {
                 bezierSegments = new BezierPathSegment[2 + numberOfPoints];
@@ -214,6 +175,12 @@ namespace DefaultNamespace
             }
             else
             {
+                if (BezierCurveUtils.CheckIBezierCurveIntersection(
+                    new BezierSegment {P0 = point1, P1 = handle1, P2 = handle3, P3 = point3},
+                    new BezierSegment {P0 = point2, P1 = handle2, P2 = handle4, P3 = point4}))
+                {
+                    return false;
+                }
                 bezierSegments = new BezierPathSegment[3 + numberOfPoints];
                 bezierSegments[0] = new BezierPathSegment
                 {
@@ -254,49 +221,14 @@ namespace DefaultNamespace
                 Closed = false
             };
 
-            //    Unite everything together
+            //    Draw the bezier curve
 
-            var vectorScene = new Scene
-            {
-                Root = new SceneNode
-                {
-                    Shapes = new List<Shape>
-                    {
-                        new Shape
-                        {
-                            Contours = new[] {bezierContour},
-                            IsConvex = false,
-                            Fill = new SolidFill
-                            {
-                                Mode = FillMode.NonZero
-                            }
-                        }
-                    }
-                }
-            };
-
-            var tessellationOptions = new VectorUtils.TessellationOptions
-            {
-                MaxCordDeviation = float.MaxValue,
-                MaxTanAngleDeviation = Mathf.PI / 2.0f,
-                SamplingStepSize = 0.5f,
-                StepDistance = 0.05f
-            };
-
-            VectorUtils.TessellateScene(vectorScene, tessellationOptions);
-            var geometry = VectorUtils.TessellateScene(vectorScene, tessellationOptions);
-
-            sprite = VectorUtils.BuildSprite(geometry,1, VectorUtils.Alignment.Center, Vector2.zero, 0);
-
-            spriteRenderer.sprite = sprite;
-
-            transform.position = geometry[0].UnclippedBounds.center;
-            
+            GenerateBezierCurve(new[] {bezierContour});
 
             return true;
         }
 
-        public int CheckSide(Vector2 pointA, Vector2 pointB, Vector2 position)
+        private static int CheckSide(Vector2 pointA, Vector2 pointB, Vector2 position)
         {
             return (int) Mathf.Sign((position.x - pointA.x) * (pointB.y - pointA.y) -
                                     (position.y - pointA.y) * (pointB.x - pointA.y));
