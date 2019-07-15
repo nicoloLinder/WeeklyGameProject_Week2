@@ -2,31 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b5d9f70-6b53-4833-a8b6-15c068ef5665" name="Default Changelist" comment="ini">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/SlimeSystem/BezierCurveUtils.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/DebugDraw.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/DebugDraw.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/DebugExtension.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/DebugExtension.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WeeklyGameProject_Week2/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WeeklyGameProject_Week2/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WeeklyGameProject_Week2/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WeeklyGameProject_Week2/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WeeklyGameProject_Week2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WeeklyGameProject_Week2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Materials/Ball.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Ball.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PathFunctions/Epitrochoid Star Path.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PathFunctions/Epitrochoid Star Path.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Ball.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Ball.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entities/SquashAndStretch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entities/SquashAndStretch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameField/Editor/GameFieldManagerEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameField/Editor/GameFieldManagerEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameField/GameFieldManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameField/GameFieldManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameField/MeshGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameField/MeshGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameField/Metaball.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metaball.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameField/Metaball.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metaball.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameField/Metasrurface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metasrurface.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameField/Metasrurface.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metasrurface.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameField/Paths/Path.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameField/Paths/Path.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/SquashNStretch.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/SquashNStretch.shadergraph" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,38 +33,79 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/FSM/PlayStateManager.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
+            <state relative-caret-position="140">
               <caret line="109" column="91" selection-start-line="109" selection-start-column="91" selection-end-line="109" selection-end-column="91" />
               <folding>
-                <marker date="1562359380041" expanded="true" signature="6:219" ph="..." />
-                <marker date="1562359380041" expanded="true" signature="234:3668" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="304:899" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="319:463" ph="Variables" />
-                <marker date="1562359380041" expanded="true" signature="346:389" ph="PublicVariables" />
-                <marker date="1562359380041" expanded="true" signature="399:443" ph="PrivateVariables" />
-                <marker date="1562359380041" expanded="true" signature="473:511" ph="Properties" />
-                <marker date="1562359380041" expanded="true" signature="521:697" ph="MonoBehaviourMethods" />
-                <marker date="1562359380041" expanded="true" signature="590:677" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="707:845" ph="Methods" />
-                <marker date="1562359380041" expanded="true" signature="732:773" ph="PublicMethods" />
-                <marker date="1562359380041" expanded="true" signature="783:825" ph="PrivateMethods" />
-                <marker date="1562359380041" expanded="true" signature="855:893" ph="Coroutines" />
-                <marker date="1562359380041" expanded="true" signature="939:3666" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="1095:1239" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="1278:1298" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="1347:1468" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="1516:1635" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="1671:2973" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="2258:2356" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="2566:2963" ph="/* GameManager.Player.SetPosition(percentage); ... */" />
-                <marker date="1562359380041" expanded="true" signature="3020:3206" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="3254:3402" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="3317:3392" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="3440:3660" ph="{...}" />
-                <marker date="1562359380041" expanded="true" signature="3503:3650" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="6:219" ph="..." />
+                <marker date="1563018224778" expanded="true" signature="234:3668" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="304:899" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="319:463" ph="Variables" />
+                <marker date="1563018224778" expanded="true" signature="346:389" ph="PublicVariables" />
+                <marker date="1563018224778" expanded="true" signature="399:443" ph="PrivateVariables" />
+                <marker date="1563018224778" expanded="true" signature="473:511" ph="Properties" />
+                <marker date="1563018224778" expanded="true" signature="521:697" ph="MonoBehaviourMethods" />
+                <marker date="1563018224778" expanded="true" signature="590:677" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="707:845" ph="Methods" />
+                <marker date="1563018224778" expanded="true" signature="732:773" ph="PublicMethods" />
+                <marker date="1563018224778" expanded="true" signature="783:825" ph="PrivateMethods" />
+                <marker date="1563018224778" expanded="true" signature="855:893" ph="Coroutines" />
+                <marker date="1563018224778" expanded="true" signature="939:3666" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="1095:1239" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="1278:1298" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="1347:1468" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="1516:1635" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="1671:2973" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="2258:2356" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="2566:2963" ph="/* GameManager.Player.SetPosition(percentage); ... */" />
+                <marker date="1563018224778" expanded="true" signature="3020:3206" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="3254:3402" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="3317:3392" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="3440:3660" ph="{...}" />
+                <marker date="1563018224778" expanded="true" signature="3503:3650" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameEvents/EventManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="925">
+              <caret line="100" selection-start-line="100" selection-end-line="100" />
+              <folding>
+                <marker date="1563018224779" expanded="true" signature="6:107" ph="..." />
+                <marker date="1563018224779" expanded="true" signature="129:3859" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="158:581" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="638:3856" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="654:905" ph="Variables" />
+                <marker date="1563018224779" expanded="true" signature="681:763" ph="PublicVariables" />
+                <marker date="1563018224779" expanded="true" signature="773:885" ph="PrivateVariables" />
+                <marker date="1563018224779" expanded="true" signature="915:953" ph="Properties" />
+                <marker date="1563018224779" expanded="true" signature="963:1124" ph="MonoBehabiourMethods" />
+                <marker date="1563018224779" expanded="true" signature="1032:1104" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="1134:3850" ph="Methods" />
+                <marker date="1563018224779" expanded="true" signature="1159:3578" ph="PublicMethods" />
+                <marker date="1563018224779" expanded="true" signature="1190:1381" ph="/// Starts the listening to an event. ... " />
+                <marker date="1563018224779" expanded="true" signature="1466:1855" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="1560:1637" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="1654:1845" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="1865:2055" ph="/// Stops the listening to an event. ... " />
+                <marker date="1563018224779" expanded="true" signature="2139:2361" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="2271:2351" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="2371:2504" ph="/// Removes an event completely. ... " />
+                <marker date="1563018224779" expanded="true" signature="2566:2784" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="2686:2774" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="2794:2916" ph="/// Trigger an event. ... " />
+                <marker date="1563018224779" expanded="true" signature="2977:3160" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="3170:3307" ph="/// Trigger an event from the scene. ... " />
+                <marker date="1563018224779" expanded="true" signature="3399:3558" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="3484:3548" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="3588:3830" ph="PrivateMethods" />
+                <marker date="1563018224779" expanded="true" signature="3645:3809" ph="{...}" />
+                <marker date="1563018224779" expanded="true" signature="3696:3799" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -127,73 +151,54 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/MeshGenerator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Triangulator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/SquashAndStretch.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/VectorScene.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Ball.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Entity.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/VectorSceneTessellation.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/VectorUtils.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Editor/SVGImporter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Social/ScoreManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Shaders/SquashAndStretchUnlit.shader" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/VectorTessellation.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FSM/PlayStateManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/DebugExtension.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FSM/StateManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/DebugDraw.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FSM/MenuStateManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/External/LibTessDotNet/MeshUtils.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/External/LibTessDotNet/Tess.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FSM/GameOverStateManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/SVGImage.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/SVGParser.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A0E7A82E-83C7-41F2-87D3-0A5C18A1B101/88/75790255/Physics2D.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A0E7A82E-83C7-41F2-87D3-0A5C18A1B101/94/63727b5d/RaycastHit2D.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/GUI/PathButtons/MeshPathButton.png.meta" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Triangulation.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/1d/ead47678/Debug.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Geometry.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/MathUtility.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Edge.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Intersections.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/e0/dc271984/MaterialPropertyBlock.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Vertex.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/HalfEdge.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Triangle.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameEvents/BaseEvents.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameEvents/EventManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Editor/SVGImporterEditor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Template.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FSM/PlayStateManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/IndexedVector2.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FSM/StateManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FSM/MenuStateManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/FSM/GameOverStateManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Template.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Triangulation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/IndexedVector2.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/DebugDraw.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Geometry.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metasrurface.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metaball.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Edge.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Vertex.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Editor/PathEditor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/813E1E5B-8195-4432-BA17-B5313AA4F18E/ea/fafe0685/BezierPathSegment.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/99258562-0D64-4271-98DD-F3A0E1467733/f0/d000cd13/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/GUI/PathButtons/MeshPathButton.png.meta" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/HalfEdge.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/MathUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Editor/GameFieldManagerEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Paths/EpitrochoidPath.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Paths/EpitrochoidStarPath.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Paths/SquirclePath.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Triangle.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Paths/EpitrochoidPolygonalPath.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Paths/Path.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Paths/MeshPath.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metaball.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/VectorSprite.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@5.7.2/Editor/Resources/GraphView/Nodes/NodeChevronRight.png.meta" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/GameFieldManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/b7/6d2a4ba1/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/MeshGenerator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Triangulator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Ball.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/SquashAndStretch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Entity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Entities/Player.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Social/ScoreManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Intersections.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Shaders/SquashAndStretchUnlit.shader" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SlimeSystem/BezierCurveUtils.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metasrurface.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameEvents/BaseEvents.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameEvents/EventManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/MeshUtilities/MathUtility.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Intersection.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Geometry.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Edge.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MeshUtilities/Intersections.cs" />
@@ -243,6 +248,8 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/SlimeSystem/BezierCurveUtils.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameField/GameFieldManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Entities/Ball.cs" />
+        <option value="$PROJECT_DIR$/Assets/Shaders/CustomNodes/PINode.cs" />
+        <option value="$PROJECT_DIR$/Assets/Graphs/Nodes/PINode.cs" />
       </list>
     </option>
   </component>
@@ -254,10 +261,38 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="UnityExplorer" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="UnityExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+            </path>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+              <item name="Shaders" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Packages" type="4e2708dd:PackagesRoot" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-hidden-items" value="false" />
+        <option name="show-project-names" value="true" />
+      </pane>
+      <pane id="SolutionExplorer">
+        <option name="show-all-files" value="false" />
+      </pane>
+      <pane id="FileSystemExplorer" />
+      <pane id="AssemblyExplorer" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="Discover.Launch.Via.Unity" value="true" />
@@ -333,11 +368,12 @@
       <workItem from="1562356906430" duration="15422000" />
       <workItem from="1562591411670" duration="1891000" />
       <workItem from="1562760250762" duration="310000" />
+      <workItem from="1563180517477" duration="1711000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223840000" />
+    <option name="totallyTimeSpent" value="225551000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -352,7 +388,7 @@
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.23137973" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23137973" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -374,7 +410,7 @@
       <window_info anchor="bottom" id="Inspection Results" order="16" weight="0.32883817" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24964234" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24908425" />
       <window_info anchor="right" id="Errors In Solution" order="3" weight="0.3297568" />
       <window_info anchor="right" id="Database" order="4" weight="0.3297568" />
       <window_info anchor="right" id="Unit Tests Coverage" order="5" />
@@ -396,24 +432,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Editor/SVGImporter.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="275" column="35" selection-start-line="275" selection-start-column="16" selection-end-line="275" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.vectorgraphics@1.0.0-preview.27/Runtime/VectorUtils.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3066">
-          <caret line="1414" column="21" selection-start-line="1414" selection-start-column="21" selection-end-line="1414" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/DD49AECE-E059-44DB-91BF-4E1DA96114E0/dd/dee549c0/MeshFilter.cs" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/DD49AECE-E059-44DB-91BF-4E1DA96114E0/65/3eeadead/Component.cs" />
-    <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Editor/LabelHandle.cs" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/99258562-0D64-4271-98DD-F3A0E1467733/d8/15b78f7d/List`1.cs" />
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Template.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -910,20 +928,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A0E7A82E-83C7-41F2-87D3-0A5C18A1B101/94/63727b5d/RaycastHit2D.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A0E7A82E-83C7-41F2-87D3-0A5C18A1B101/88/75790255/Physics2D.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="794" column="25" lean-forward="true" selection-start-line="794" selection-start-column="25" selection-end-line="794" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A0E7A82E-83C7-41F2-87D3-0A5C18A1B101/94/63727b5d/RaycastHit2D.cs" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A0E7A82E-83C7-41F2-87D3-0A5C18A1B101/88/75790255/Physics2D.cs" />
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameField/MeshGenerator.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="882">
@@ -952,23 +958,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameField/Paths/FourierPath.cs" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/e0/dc271984/MaterialPropertyBlock.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/e0/dc271984/MaterialPropertyBlock.cs" />
     <entry file="file://$PROJECT_DIR$/Assets/Content/Shaders/SquashAndStretchUnlit.shader" />
     <entry file="file://$PROJECT_DIR$/Assets/Content/Scripts/SquashAndStretch.cs" />
     <entry file="file://$PROJECT_DIR$/Assets/Content/Shaders/SquashAndStretch.shader" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/b7/6d2a4ba1/SetupCoroutine.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/b7/6d2a4ba1/SetupCoroutine.cs" />
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/GameManager.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -1087,13 +1081,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/813E1E5B-8195-4432-BA17-B5313AA4F18E/ea/fafe0685/BezierPathSegment.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/813E1E5B-8195-4432-BA17-B5313AA4F18E/ea/fafe0685/BezierPathSegment.cs" />
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/DebugExtension.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -1109,13 +1097,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/1d/ead47678/Debug.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416475E6-C0B9-423B-A45F-C1C6EA4AFF1C/1d/ead47678/Debug.cs" />
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/SlimeSystem/Metaball.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -1335,35 +1317,109 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/FSM/PlayStateManager.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
+        <state relative-caret-position="140">
           <caret line="109" column="91" selection-start-line="109" selection-start-column="91" selection-end-line="109" selection-end-column="91" />
           <folding>
-            <marker date="1562359380041" expanded="true" signature="6:219" ph="..." />
-            <marker date="1562359380041" expanded="true" signature="234:3668" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="304:899" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="319:463" ph="Variables" />
-            <marker date="1562359380041" expanded="true" signature="346:389" ph="PublicVariables" />
-            <marker date="1562359380041" expanded="true" signature="399:443" ph="PrivateVariables" />
-            <marker date="1562359380041" expanded="true" signature="473:511" ph="Properties" />
-            <marker date="1562359380041" expanded="true" signature="521:697" ph="MonoBehaviourMethods" />
-            <marker date="1562359380041" expanded="true" signature="590:677" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="707:845" ph="Methods" />
-            <marker date="1562359380041" expanded="true" signature="732:773" ph="PublicMethods" />
-            <marker date="1562359380041" expanded="true" signature="783:825" ph="PrivateMethods" />
-            <marker date="1562359380041" expanded="true" signature="855:893" ph="Coroutines" />
-            <marker date="1562359380041" expanded="true" signature="939:3666" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="1095:1239" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="1278:1298" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="1347:1468" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="1516:1635" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="1671:2973" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="2258:2356" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="2566:2963" ph="/* GameManager.Player.SetPosition(percentage); ... */" />
-            <marker date="1562359380041" expanded="true" signature="3020:3206" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="3254:3402" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="3317:3392" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="3440:3660" ph="{...}" />
-            <marker date="1562359380041" expanded="true" signature="3503:3650" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="6:219" ph="..." />
+            <marker date="1563018224778" expanded="true" signature="234:3668" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="304:899" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="319:463" ph="Variables" />
+            <marker date="1563018224778" expanded="true" signature="346:389" ph="PublicVariables" />
+            <marker date="1563018224778" expanded="true" signature="399:443" ph="PrivateVariables" />
+            <marker date="1563018224778" expanded="true" signature="473:511" ph="Properties" />
+            <marker date="1563018224778" expanded="true" signature="521:697" ph="MonoBehaviourMethods" />
+            <marker date="1563018224778" expanded="true" signature="590:677" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="707:845" ph="Methods" />
+            <marker date="1563018224778" expanded="true" signature="732:773" ph="PublicMethods" />
+            <marker date="1563018224778" expanded="true" signature="783:825" ph="PrivateMethods" />
+            <marker date="1563018224778" expanded="true" signature="855:893" ph="Coroutines" />
+            <marker date="1563018224778" expanded="true" signature="939:3666" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="1095:1239" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="1278:1298" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="1347:1468" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="1516:1635" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="1671:2973" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="2258:2356" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="2566:2963" ph="/* GameManager.Player.SetPosition(percentage); ... */" />
+            <marker date="1563018224778" expanded="true" signature="3020:3206" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="3254:3402" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="3317:3392" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="3440:3660" ph="{...}" />
+            <marker date="1563018224778" expanded="true" signature="3503:3650" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Shaders/CustomNodes/PINode.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@5.7.2/Editor/Data/Nodes/CodeFunctionNode.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@5.7.2/Editor/Data/Nodes/AbstractMaterialNode.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/99258562-0D64-4271-98DD-F3A0E1467733/f0/d000cd13/Object.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Graphs/Nodes/PINode.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameEvents/EventManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="925">
+          <caret line="100" selection-start-line="100" selection-end-line="100" />
+          <folding>
+            <marker date="1563018224779" expanded="true" signature="6:107" ph="..." />
+            <marker date="1563018224779" expanded="true" signature="129:3859" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="158:581" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="638:3856" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="654:905" ph="Variables" />
+            <marker date="1563018224779" expanded="true" signature="681:763" ph="PublicVariables" />
+            <marker date="1563018224779" expanded="true" signature="773:885" ph="PrivateVariables" />
+            <marker date="1563018224779" expanded="true" signature="915:953" ph="Properties" />
+            <marker date="1563018224779" expanded="true" signature="963:1124" ph="MonoBehabiourMethods" />
+            <marker date="1563018224779" expanded="true" signature="1032:1104" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="1134:3850" ph="Methods" />
+            <marker date="1563018224779" expanded="true" signature="1159:3578" ph="PublicMethods" />
+            <marker date="1563018224779" expanded="true" signature="1190:1381" ph="/// Starts the listening to an event. ... " />
+            <marker date="1563018224779" expanded="true" signature="1466:1855" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="1560:1637" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="1654:1845" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="1865:2055" ph="/// Stops the listening to an event. ... " />
+            <marker date="1563018224779" expanded="true" signature="2139:2361" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="2271:2351" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="2371:2504" ph="/// Removes an event completely. ... " />
+            <marker date="1563018224779" expanded="true" signature="2566:2784" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="2686:2774" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="2794:2916" ph="/// Trigger an event. ... " />
+            <marker date="1563018224779" expanded="true" signature="2977:3160" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="3170:3307" ph="/// Trigger an event from the scene. ... " />
+            <marker date="1563018224779" expanded="true" signature="3399:3558" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="3484:3548" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="3588:3830" ph="PrivateMethods" />
+            <marker date="1563018224779" expanded="true" signature="3645:3809" ph="{...}" />
+            <marker date="1563018224779" expanded="true" signature="3696:3799" ph="{...}" />
           </folding>
         </state>
       </provider>
